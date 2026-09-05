@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"testing"
@@ -119,5 +119,24 @@ func TestLexicalService(t *testing.T) {
 	}
 	if len(poetics.Alliterations) == 0 {
 		t.Errorf("expected alliterations for 'bright', got none")
+	}
+
+	// Verify words mentioned by user: "she", "the", "money"
+	sheRes := service.AnalyzeWord("she", "She had a bright idea.", 1)
+	if sheRes.Found {
+		t.Errorf("expected 'she' not to be found in WordNet")
+	}
+
+	theRes := service.AnalyzeWord("the", "The bright sunlight warmed the room.", 2)
+	if theRes.Found {
+		t.Errorf("expected 'the' not to be found in WordNet")
+	}
+
+	moneyRes := service.AnalyzeWord("money", "I deposited money into the bank.", 3)
+	if !moneyRes.Found {
+		t.Errorf("expected 'money' to be found in WordNet")
+	}
+	if len(moneyRes.Senses) == 0 {
+		t.Errorf("expected senses for 'money', got none")
 	}
 }

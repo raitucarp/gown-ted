@@ -4,14 +4,15 @@ import (
 	"embed"
 	"log"
 
+	"github.com/raitucarp/gown-ted/service"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
-//go:embed all:frontend/dist
+//go:embed all:ui/dist
 var assets embed.FS
 
 func main() {
-	lexicalService := NewLexicalService()
+	lexicalService := service.NewLexicalService()
 
 	app := application.New(application.Options{
 		Name:        "gown-ted",
