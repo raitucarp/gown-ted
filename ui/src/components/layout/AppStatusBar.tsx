@@ -1,6 +1,8 @@
 import React from "react";
-import { HStack, Text, Badge } from "@chakra-ui/react";
+import { HStack, Text, Badge, Link } from "@chakra-ui/react";
 import { LuClock, LuFileText, LuActivity } from "react-icons/lu";
+import { SiGithub, SiKofi } from "react-icons/si";
+import { Browser } from "@wailsio/runtime";
 
 import type { DocumentStats } from "@types";
 
@@ -15,6 +17,15 @@ export const AppStatusBar: React.FC<AppStatusBarProps> = ({
   activeWord,
   activeLemma,
 }) => {
+  const handleOpenUrl = (url: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      Browser.OpenURL(url);
+    } catch {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <HStack
       px="4"
@@ -54,6 +65,47 @@ export const AppStatusBar: React.FC<AppStatusBarProps> = ({
             Richness: <strong style={{ color: "#4FD1C5" }}>{(stats.vocabularyRichness * 100).toFixed(0)}%</strong>
           </Text>
         )}
+      </HStack>
+
+      {/* Center: Creator & Support Links */}
+      <HStack gap="3" alignItems="center">
+        <Link
+          href="https://github.com/raitucarp"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleOpenUrl("https://github.com/raitucarp")}
+          display="inline-flex"
+          alignItems="center"
+          gap="1.5"
+          color="gray.400"
+          _hover={{ color: "blue.300", textDecoration: "none" }}
+          transition="color 0.15s ease"
+          cursor="pointer"
+        >
+          <SiGithub size={12} />
+          <Text as="span">Created by @raitucarp</Text>
+        </Link>
+
+        <Text color="gray.700" userSelect="none">
+          •
+        </Text>
+
+        <Link
+          href="https://ko-fi.com/raitucarp"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleOpenUrl("https://ko-fi.com/raitucarp")}
+          display="inline-flex"
+          alignItems="center"
+          gap="1.5"
+          color="gray.400"
+          _hover={{ color: "pink.300", textDecoration: "none" }}
+          transition="color 0.15s ease"
+          cursor="pointer"
+        >
+          <SiKofi size={12} color="#FF5E5B" />
+          <Text as="span">Support me</Text>
+        </Link>
       </HStack>
 
       {/* Right: Reading Time & Active Word Indicator */}
