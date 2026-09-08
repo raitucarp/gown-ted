@@ -1,0 +1,287 @@
+{{ define "main" }}
+<style>
+  .hero-section {
+    padding: 5rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    max-width: 960px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-screenshot {
+    max-width: 1240px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 14px;
+    padding: 6px;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.3) 0%, rgba(30, 41, 59, 0.2) 100%);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15);
+  }
+  .hero-screenshot img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+  }
+  .section-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 3.5rem;
+  }
+  .section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .section-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+  }
+  .feature-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-cyan);
+  }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #f8fafc;
+  }
+  .feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .showcase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+  .showcase-row.reverse {
+    direction: rtl;
+  }
+  .showcase-row.reverse > * {
+    direction: ltr;
+  }
+  .showcase-img img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  }
+  .download-box {
+    background: linear-gradient(180deg, #111726 0%, #0d121f 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  @media (max-width: 860px) {
+    .showcase-row, .showcase-row.reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+      gap: 2rem;
+    }
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-badge">
+    <span>✨ Version {{ .Site.Params.version }} Initial Release</span>
+  </div>
+  <h1 class="hero-title">
+    The Intelligent Lexical & Poetics Text Editor
+  </h1>
+  <p class="hero-subtitle">
+    Designed for novelists, poets, essayists, and linguists. Real-time WordNet sense disambiguation, rhyming dictionaries, phonological rhythm, and systemic functional grammar — right beside your cursor.
+  </p>
+  <div class="hero-cta">
+    <a href="{{ .Site.Params.releaseUrl }}" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 1rem;">
+      <svg height="18" width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download for Windows (x64)
+    </a>
+    <a href="{{ "/docs/getting-started/" | relURL }}" class="btn btn-outline" style="padding: 0.75rem 1.4rem; font-size: 1rem;">
+      Read Documentation →
+    </a>
+  </div>
+
+  <div class="hero-screenshot">
+    <img src="{{ "images/hero-editor.png" | relURL }}" alt="gown-ted Editor UI with WordNet Senses, Rhymes, and Analysis">
+  </div>
+</section>
+
+<!-- Features Grid -->
+<section class="section-container">
+  <div class="section-header">
+    <h2>Crafted for Deep Lexical Mastery</h2>
+    <p>Everything you need to sculpt words with nuance, precision, and musicality.</p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Real-Time Sense Disambiguation</h3>
+      <p>Automatic Lesk contextual analysis identifies the exact WordNet synset matching your sentence context with real-time confidence scores.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🎵</div>
+      <h3>Poetics, Rhyme & Meter</h3>
+      <p>Instant phonological analysis: find exact rhymes, slant rhymes, alliterative onsets, syllable metrics, and Consonant-Vowel (CV) meter patterns.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🌿</div>
+      <h3>Ontology & Semantic Relations</h3>
+      <p>Navigate hypernyms, hyponyms, meronyms, and semantic taxonomy trees. Calculate Wu-Palmer conceptual similarity between any two words.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔬</div>
+      <h3>Systemic Functional Linguistics</h3>
+      <p>Analyze Theme/Rheme clauses, interpersonal politeness hedging, speech acts, and cohesive lexical ties across your writing.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Local-First & Blazing Fast</h3>
+      <p>100% offline, zero cloud reliance. Native Go backend powered by Wails v3 starts in milliseconds and consumes minimal RAM.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Chakra UI v3 Dark Experience</h3>
+      <p>Immersive, customizable multi-pane workspace with distraction-free focus mode, rich text formatting, and tabbed file explorer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Visual Showcase 1 -->
+<section class="section-container" style="padding-top: 0;">
+  <div class="showcase-row">
+    <div class="showcase-text prose">
+      <h2>Deep Pragmatic & Speech Act Insights</h2>
+      <p>
+        Unpack the communicative intent behind every word. gown-ted breaks down illocutionary force, performative verbs, interpersonal politeness strategies, and deictic markers in the collapsible bottom drawer.
+      </p>
+      <ul>
+        <li><strong>Illocutionary Force:</strong> Detect assertive, directive, commissive, and expressive speech acts.</li>
+        <li><strong>Politeness Strategies:</strong> Track hedging percentages and mitigation register elements.</li>
+        <li><strong>Theme & Rheme:</strong> Examine informational progression from given themes to new rhemes.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="{{ "images/linguistic-analysis.png" | relURL }}" alt="Pragmatics and speech act analysis in gown-ted bottom drawer">
+    </div>
+  </div>
+
+  <div class="showcase-row reverse">
+    <div class="showcase-text prose">
+      <h2>Designed for Writers, Poets & Scholars</h2>
+      <p>
+        Whether crafting lyrical poetry, technical essays, or narrative fiction, gown-ted provides the exact vocabulary, synsets, and cadence you need without breaking your creative flow.
+      </p>
+      <ul>
+        <li><strong>Distraction-Free Focus Mode:</strong> Hide sidebars with <code>Ctrl+Shift+F</code> and immerse yourself in text.</li>
+        <li><strong>Markdown & Plain Text:</strong> Work seamlessly with standard <code>.md</code> and <code>.txt</code> files.</li>
+        <li><strong>Open Source & Independent:</strong> Fully open source under MIT License, built with Go & React.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="{{ "images/about-dialog.png" | relURL }}" alt="gown-ted About dialog and credits">
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section-container" style="padding-top: 0;">
+  <div class="download-box">
+    <img src="{{ "images/app-icon.png" | relURL }}" alt="gown-ted logo" style="width: 64px; height: 64px; border-radius: 12px; margin-bottom: 1.5rem;">
+    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem;">Elevate Your Writing with gown-ted</h2>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem;">
+      Download the latest release for Windows, or build easily from source on macOS and Linux.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="{{ .Site.Params.releaseUrl }}" class="btn btn-primary" style="padding: 0.8rem 1.8rem; font-size: 1rem;">
+        Download Latest Release ({{ .Site.Params.version }})
+      </a>
+      <a href="https://github.com/raitucarp/gown-ted" target="_blank" rel="noopener" class="btn btn-outline" style="padding: 0.8rem 1.6rem; font-size: 1rem;">
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+{{ end }}

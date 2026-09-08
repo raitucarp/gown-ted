@@ -1,0 +1,51 @@
+baseURL = 'https://raitucarp.github.io/gown-ted/'
+locale = 'en-US'
+title = 'gown-ted — Computational Linguistics & Poetics Editor'
+paginate = 10
+
+[params]
+  description = 'A modern desktop text editor deeply integrated with Princeton WordNet and Open English Wordnet for writers, poets, and linguists.'
+  author = 'Ribhararnus Pracutiar (@raitucarp)'
+  github = 'https://github.com/raitucarp/gown-ted'
+  version = 'v0.1.0'
+  releaseUrl = 'https://github.com/raitucarp/gown-ted/releases/latest'
+
+[languages]
+  [languages.en]
+    label = 'English'
+    contentDir = 'content'
+    weight = 1
+
+[[menu.main]]
+  name = 'Overview'
+  url = '/'
+  weight = 1
+
+[[menu.main]]
+  name = 'Getting Started'
+  url = '/docs/getting-started/'
+  weight = 2
+
+[[menu.main]]
+  name = 'Features'
+  url = '/docs/features/'
+  weight = 3
+
+[[menu.main]]
+  name = 'Poetics & Rhymes'
+  url = '/docs/poetics-and-rhyme/'
+  weight = 4
+
+[[menu.main]]
+  name = 'Shortcuts'
+  url = '/docs/keyboard-shortcuts/'
+  weight = 5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = 'dracula'
+    tabWidth = 2
+    guessSyntax = true

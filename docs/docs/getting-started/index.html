@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with gown-ted — gown-ted — Computational Linguistics &amp; Poetics Editor</title>
+  <meta name="description" content="How to download, install, and start writing with gown-ted on Windows, macOS, and Linux.">
+  <link rel="icon" type="image/png" href="/gown-ted/images/app-icon.png">
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #0a0d14;
+      --bg-surface: #111726;
+      --bg-card: #161f33;
+      --border-color: #1e293b;
+      --border-subtle: #182234;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #7dd3fc;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover {
+      background: var(--bg-surface);
+      border-color: var(--text-muted);
+    }
+    main {
+      min-height: calc(100vh - 140px);
+    }
+    footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-main);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    footer a {
+      color: var(--text-secondary);
+    }
+     
+    .docs-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+    .docs-sidebar {
+      position: sticky;
+      top: 5rem;
+      height: calc(100vh - 6rem);
+      overflow-y: auto;
+      padding-right: 1rem;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .docs-sidebar h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .docs-sidebar ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .docs-sidebar li {
+      margin-bottom: 0.4rem;
+    }
+    .docs-sidebar a {
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .docs-sidebar a:hover, .docs-sidebar a.active {
+      color: var(--accent-cyan);
+      background: var(--bg-surface);
+    }
+     
+    .prose {
+      color: var(--text-primary);
+      max-width: 860px;
+    }
+    .prose h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: #f8fafc;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #f1f5f9;
+    }
+    .prose h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+      color: var(--accent-cyan);
+    }
+    .prose p {
+      margin-bottom: 1.1rem;
+      color: #cbd5e1;
+      font-size: 1.02rem;
+    }
+    .prose ul, .prose ol {
+      margin-bottom: 1.2rem;
+      padding-left: 1.5rem;
+      color: #cbd5e1;
+    }
+    .prose li {
+      margin-bottom: 0.35rem;
+    }
+    .prose code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      background: #1e293b;
+      padding: 0.2rem 0.45rem;
+      border-radius: 5px;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+    }
+    .prose pre {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.2rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    .prose pre code {
+      background: transparent;
+      padding: 0;
+      border: none;
+      color: #f8fafc;
+    }
+    .prose img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin: 1.5rem 0;
+    }
+    .prose blockquote {
+      border-left: 4px solid var(--accent-cyan);
+      padding: 0.75rem 1.2rem;
+      margin: 1.2rem 0;
+      background: rgba(56, 189, 248, 0.05);
+      border-radius: 0 8px 8px 0;
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .prose table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .prose th, .prose td {
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+    }
+    .prose th {
+      background: var(--bg-surface);
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+     
+    @media (max-width: 900px) {
+      .docs-container {
+        grid-template-columns: 1fr;
+      }
+      .docs-sidebar {
+        display: none;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="/" class="brand">
+        <img src="/gown-ted/images/app-icon.png" alt="gown-ted logo">
+        <span>gown-ted</span>
+      </a>
+
+      <ul class="nav-links">
+        
+        <li>
+          <a href="/gown-ted/" class="active">
+            Overview
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/getting-started/" class="active">
+            Getting Started
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/features/" class="">
+            Features
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/poetics-and-rhyme/" class="">
+            Poetics &amp; Rhymes
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/keyboard-shortcuts/" class="">
+            Shortcuts
+          </a>
+        </li>
+        
+      </ul>
+
+      <div class="header-actions">
+        <a href="https://github.com/raitucarp/gown-ted" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://github.com/raitucarp/gown-ted/releases/latest" target="_blank" rel="noopener" class="btn btn-primary">
+          Download v0.1.0
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+<div class="docs-container">
+  <aside class="docs-sidebar">
+    <h4>Documentation</h4>
+    <ul>
+      <li><a href="/docs/getting-started/" class="">Getting Started</a></li>
+      <li><a href="/docs/features/" class="">Key Features</a></li>
+      <li><a href="/docs/poetics-and-rhyme/" class="">Poetics, Rhyme & Meter</a></li>
+      <li><a href="/docs/keyboard-shortcuts/" class="">Keyboard Shortcuts</a></li>
+    </ul>
+
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="https://github.com/raitucarp/gown-ted/releases" target="_blank" rel="noopener">Releases & Changelog ↗</a></li>
+      <li><a href="https://github.com/raitucarp/gown-ted/issues" target="_blank" rel="noopener">Report Issue ↗</a></li>
+      <li><a href="https://ko-fi.com/raitucarp" target="_blank" rel="noopener">Support on Ko-fi ↗</a></li>
+    </ul>
+  </aside>
+
+  <article class="prose">
+    <h1>Getting Started with gown-ted</h1>
+    
+      <p style="font-size: 1.15rem; color: #94a3b8; margin-bottom: 2rem;">How to download, install, and start writing with gown-ted on Windows, macOS, and Linux.</p>
+    
+
+    <p>Welcome to <strong>gown-ted</strong> — the intelligent desktop text editor combining distraction-free writing with real-time computational linguistics and Princeton WordNet 3.1 ontology.</p>
+<p><img src="/gown-ted/images/hero-editor.png" alt="gown-ted Hero Editor"></p>
+<h2 id="system-requirements">System Requirements</h2>
+<ul>
+<li><strong>Windows:</strong> Windows 10/11 64-bit (WebView2 Runtime preinstalled on modern Windows)</li>
+<li><strong>macOS:</strong> macOS 12+ (Apple Silicon or Intel)</li>
+<li><strong>Linux:</strong> Ubuntu 22.04+, Fedora 38+, Arch Linux (WebKit2GTK 4.1)</li>
+</ul>
+<hr>
+<h2 id="installation">Installation</h2>
+<h3 id="windows-exe--portable-zip">Windows (.exe / Portable Zip)</h3>
+<ol>
+<li>Download the latest <code>gown-ted-windows-amd64.zip</code> from <a href="https://github.com/raitucarp/gown-ted/releases/latest">GitHub Releases</a>.</li>
+<li>Extract the archive to any folder (e.g. <code>C:\Program Files\gown-ted</code> or your portable apps folder).</li>
+<li>Double-click <code>gown-ted.exe</code> to run. No external internet connection or configuration required!</li>
+</ol>
+<h3 id="macos--linux-building-from-source">macOS &amp; Linux (Building from Source)</h3>
+<p>If you are developing or running on macOS/Linux:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Clone the repository</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/raitucarp/gown-ted.git
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> gown-ted
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Install frontend dependencies</span>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> ui <span style="color:#ff79c6">&amp;&amp;</span> npm install <span style="color:#ff79c6">&amp;&amp;</span> npm run build <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd;font-style:italic">cd</span> ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Run with Wails v3</span>
+</span></span><span style="display:flex;"><span>wails3 dev
+</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Or build a standalone binary</span>
+</span></span><span style="display:flex;"><span>wails3 build
+</span></span></code></pre></div><hr>
+<h2 id="first-steps-in-the-editor">First Steps in the Editor</h2>
+<ol>
+<li><strong>Create or Open a File:</strong> Use <code>Ctrl + N</code> (<code>Cmd + N</code> on macOS) to open a new document tab, or <code>Ctrl + O</code> to open existing <code>.md</code> or <code>.txt</code> files.</li>
+<li><strong>Type or Paste Your Prose:</strong> Start writing. The status bar at the bottom will immediately update with live word count, character metrics, reading time, and vocabulary richness.</li>
+<li><strong>Inspect Any Word:</strong> Double-click or move your cursor to any English word. The left sidebar immediately displays:
+<ul>
+<li>Part of Speech breakdown (<code>Noun</code>, <code>Verb</code>, <code>Adjective</code>, <code>Adverb</code>)</li>
+<li>Recommended synset sense resolved by the Lesk WSD algorithm</li>
+<li>Lemmatized base forms</li>
+</ul>
+</li>
+<li><strong>Explore Rhymes &amp; Poetics:</strong> Check the right sidebar to instantly see matching rhymes, alliteration clusters, and syllable counts.</li>
+<li><strong>Expand Linguistic Analysis:</strong> Click <strong>&ldquo;Expand Panel&rdquo;</strong> at the bottom to explore deep Theme/Rheme sentence functional grammar and Pragmatic speech acts.</li>
+</ol>
+
+  </article>
+</div>
+
+  </main>
+
+  <footer>
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+      <p>© 2026 <strong>gown-ted</strong> by <a href="https://github.com/raitucarp" target="_blank" rel="noopener">Ribhararnus Pracutiar (@raitucarp)</a>. Released under MIT License.</p>
+      <p style="font-size: 0.8rem; color: #64748b;">Powered by Go, Wails v3, Princeton WordNet 3.1, and Chakra UI v3.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

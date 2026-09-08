@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+	<meta name="generator" content="Hugo 0.165.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gown-ted — Computational Linguistics &amp; Poetics Editor</title>
+  <meta name="description" content="A modern desktop text editor deeply integrated with Princeton WordNet and Open English Wordnet for writers, poets, and linguists.">
+  <link rel="icon" type="image/png" href="/gown-ted/images/app-icon.png">
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #0a0d14;
+      --bg-surface: #111726;
+      --bg-card: #161f33;
+      --border-color: #1e293b;
+      --border-subtle: #182234;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #7dd3fc;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 13, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover {
+      background: var(--bg-surface);
+      border-color: var(--text-muted);
+    }
+    main {
+      min-height: calc(100vh - 140px);
+    }
+    footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-main);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+    footer a {
+      color: var(--text-secondary);
+    }
+     
+    .docs-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+    .docs-sidebar {
+      position: sticky;
+      top: 5rem;
+      height: calc(100vh - 6rem);
+      overflow-y: auto;
+      padding-right: 1rem;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .docs-sidebar h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .docs-sidebar ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .docs-sidebar li {
+      margin-bottom: 0.4rem;
+    }
+    .docs-sidebar a {
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .docs-sidebar a:hover, .docs-sidebar a.active {
+      color: var(--accent-cyan);
+      background: var(--bg-surface);
+    }
+     
+    .prose {
+      color: var(--text-primary);
+      max-width: 860px;
+    }
+    .prose h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: #f8fafc;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: #f1f5f9;
+    }
+    .prose h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+      color: var(--accent-cyan);
+    }
+    .prose p {
+      margin-bottom: 1.1rem;
+      color: #cbd5e1;
+      font-size: 1.02rem;
+    }
+    .prose ul, .prose ol {
+      margin-bottom: 1.2rem;
+      padding-left: 1.5rem;
+      color: #cbd5e1;
+    }
+    .prose li {
+      margin-bottom: 0.35rem;
+    }
+    .prose code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      background: #1e293b;
+      padding: 0.2rem 0.45rem;
+      border-radius: 5px;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+    }
+    .prose pre {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.2rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    .prose pre code {
+      background: transparent;
+      padding: 0;
+      border: none;
+      color: #f8fafc;
+    }
+    .prose img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin: 1.5rem 0;
+    }
+    .prose blockquote {
+      border-left: 4px solid var(--accent-cyan);
+      padding: 0.75rem 1.2rem;
+      margin: 1.2rem 0;
+      background: rgba(56, 189, 248, 0.05);
+      border-radius: 0 8px 8px 0;
+      color: #94a3b8;
+      font-style: italic;
+    }
+    .prose table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    .prose th, .prose td {
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+    }
+    .prose th {
+      background: var(--bg-surface);
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+     
+    @media (max-width: 900px) {
+      .docs-container {
+        grid-template-columns: 1fr;
+      }
+      .docs-sidebar {
+        display: none;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="/" class="brand">
+        <img src="/gown-ted/images/app-icon.png" alt="gown-ted logo">
+        <span>gown-ted</span>
+      </a>
+
+      <ul class="nav-links">
+        
+        <li>
+          <a href="/gown-ted/" class="active">
+            Overview
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/getting-started/" class="">
+            Getting Started
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/features/" class="">
+            Features
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/poetics-and-rhyme/" class="">
+            Poetics &amp; Rhymes
+          </a>
+        </li>
+        
+        <li>
+          <a href="/gown-ted/docs/keyboard-shortcuts/" class="">
+            Shortcuts
+          </a>
+        </li>
+        
+      </ul>
+
+      <div class="header-actions">
+        <a href="https://github.com/raitucarp/gown-ted" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg height="18" width="18" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://github.com/raitucarp/gown-ted/releases/latest" target="_blank" rel="noopener" class="btn btn-primary">
+          Download v0.1.0
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+<style>
+  .hero-section {
+    padding: 5rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    max-width: 960px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-screenshot {
+    max-width: 1240px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 14px;
+    padding: 6px;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.3) 0%, rgba(30, 41, 59, 0.2) 100%);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15);
+  }
+  .hero-screenshot img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+  }
+  .section-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 3.5rem;
+  }
+  .section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .section-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+  }
+  .feature-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-cyan);
+  }
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #f8fafc;
+  }
+  .feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .showcase-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+  .showcase-row.reverse {
+    direction: rtl;
+  }
+  .showcase-row.reverse > * {
+    direction: ltr;
+  }
+  .showcase-img img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  }
+  .download-box {
+    background: linear-gradient(180deg, #111726 0%, #0d121f 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  @media (max-width: 860px) {
+    .showcase-row, .showcase-row.reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+      gap: 2rem;
+    }
+  }
+</style>
+
+
+<section class="hero-section">
+  <div class="hero-badge">
+    <span>✨ Version v0.1.0 Initial Release</span>
+  </div>
+  <h1 class="hero-title">
+    The Intelligent Lexical & Poetics Text Editor
+  </h1>
+  <p class="hero-subtitle">
+    Designed for novelists, poets, essayists, and linguists. Real-time WordNet sense disambiguation, rhyming dictionaries, phonological rhythm, and systemic functional grammar — right beside your cursor.
+  </p>
+  <div class="hero-cta">
+    <a href="https://github.com/raitucarp/gown-ted/releases/latest" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 1rem;">
+      <svg height="18" width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download for Windows (x64)
+    </a>
+    <a href="/docs/getting-started/" class="btn btn-outline" style="padding: 0.75rem 1.4rem; font-size: 1rem;">
+      Read Documentation →
+    </a>
+  </div>
+
+  <div class="hero-screenshot">
+    <img src="/gown-ted/images/hero-editor.png" alt="gown-ted Editor UI with WordNet Senses, Rhymes, and Analysis">
+  </div>
+</section>
+
+
+<section class="section-container">
+  <div class="section-header">
+    <h2>Crafted for Deep Lexical Mastery</h2>
+    <p>Everything you need to sculpt words with nuance, precision, and musicality.</p>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Real-Time Sense Disambiguation</h3>
+      <p>Automatic Lesk contextual analysis identifies the exact WordNet synset matching your sentence context with real-time confidence scores.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🎵</div>
+      <h3>Poetics, Rhyme & Meter</h3>
+      <p>Instant phonological analysis: find exact rhymes, slant rhymes, alliterative onsets, syllable metrics, and Consonant-Vowel (CV) meter patterns.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🌿</div>
+      <h3>Ontology & Semantic Relations</h3>
+      <p>Navigate hypernyms, hyponyms, meronyms, and semantic taxonomy trees. Calculate Wu-Palmer conceptual similarity between any two words.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔬</div>
+      <h3>Systemic Functional Linguistics</h3>
+      <p>Analyze Theme/Rheme clauses, interpersonal politeness hedging, speech acts, and cohesive lexical ties across your writing.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Local-First & Blazing Fast</h3>
+      <p>100% offline, zero cloud reliance. Native Go backend powered by Wails v3 starts in milliseconds and consumes minimal RAM.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Chakra UI v3 Dark Experience</h3>
+      <p>Immersive, customizable multi-pane workspace with distraction-free focus mode, rich text formatting, and tabbed file explorer.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-container" style="padding-top: 0;">
+  <div class="showcase-row">
+    <div class="showcase-text prose">
+      <h2>Deep Pragmatic & Speech Act Insights</h2>
+      <p>
+        Unpack the communicative intent behind every word. gown-ted breaks down illocutionary force, performative verbs, interpersonal politeness strategies, and deictic markers in the collapsible bottom drawer.
+      </p>
+      <ul>
+        <li><strong>Illocutionary Force:</strong> Detect assertive, directive, commissive, and expressive speech acts.</li>
+        <li><strong>Politeness Strategies:</strong> Track hedging percentages and mitigation register elements.</li>
+        <li><strong>Theme & Rheme:</strong> Examine informational progression from given themes to new rhemes.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="/gown-ted/images/linguistic-analysis.png" alt="Pragmatics and speech act analysis in gown-ted bottom drawer">
+    </div>
+  </div>
+
+  <div class="showcase-row reverse">
+    <div class="showcase-text prose">
+      <h2>Designed for Writers, Poets & Scholars</h2>
+      <p>
+        Whether crafting lyrical poetry, technical essays, or narrative fiction, gown-ted provides the exact vocabulary, synsets, and cadence you need without breaking your creative flow.
+      </p>
+      <ul>
+        <li><strong>Distraction-Free Focus Mode:</strong> Hide sidebars with <code>Ctrl+Shift+F</code> and immerse yourself in text.</li>
+        <li><strong>Markdown & Plain Text:</strong> Work seamlessly with standard <code>.md</code> and <code>.txt</code> files.</li>
+        <li><strong>Open Source & Independent:</strong> Fully open source under MIT License, built with Go & React.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="/gown-ted/images/about-dialog.png" alt="gown-ted About dialog and credits">
+    </div>
+  </div>
+</section>
+
+
+<section class="section-container" style="padding-top: 0;">
+  <div class="download-box">
+    <img src="/gown-ted/images/app-icon.png" alt="gown-ted logo" style="width: 64px; height: 64px; border-radius: 12px; margin-bottom: 1.5rem;">
+    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem;">Elevate Your Writing with gown-ted</h2>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem; font-size: 1.05rem;">
+      Download the latest release for Windows, or build easily from source on macOS and Linux.
+    </p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="https://github.com/raitucarp/gown-ted/releases/latest" class="btn btn-primary" style="padding: 0.8rem 1.8rem; font-size: 1rem;">
+        Download Latest Release (v0.1.0)
+      </a>
+      <a href="https://github.com/raitucarp/gown-ted" target="_blank" rel="noopener" class="btn btn-outline" style="padding: 0.8rem 1.6rem; font-size: 1rem;">
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
+      <p>© 2026 <strong>gown-ted</strong> by <a href="https://github.com/raitucarp" target="_blank" rel="noopener">Ribhararnus Pracutiar (@raitucarp)</a>. Released under MIT License.</p>
+      <p style="font-size: 0.8rem; color: #64748b;">Powered by Go, Wails v3, Princeton WordNet 3.1, and Chakra UI v3.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

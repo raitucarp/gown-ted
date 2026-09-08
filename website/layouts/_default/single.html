@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="docs-container">
+  <aside class="docs-sidebar">
+    <h4>Documentation</h4>
+    <ul>
+      <li><a href="{{ "/docs/getting-started/" | relURL }}" class="{{ if eq .RelPermalink "/docs/getting-started/" }}active{{ end }}">Getting Started</a></li>
+      <li><a href="{{ "/docs/features/" | relURL }}" class="{{ if eq .RelPermalink "/docs/features/" }}active{{ end }}">Key Features</a></li>
+      <li><a href="{{ "/docs/poetics-and-rhyme/" | relURL }}" class="{{ if eq .RelPermalink "/docs/poetics-and-rhyme/" }}active{{ end }}">Poetics, Rhyme & Meter</a></li>
+      <li><a href="{{ "/docs/keyboard-shortcuts/" | relURL }}" class="{{ if eq .RelPermalink "/docs/keyboard-shortcuts/" }}active{{ end }}">Keyboard Shortcuts</a></li>
+    </ul>
+
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="https://github.com/raitucarp/gown-ted/releases" target="_blank" rel="noopener">Releases & Changelog ↗</a></li>
+      <li><a href="https://github.com/raitucarp/gown-ted/issues" target="_blank" rel="noopener">Report Issue ↗</a></li>
+      <li><a href="https://ko-fi.com/raitucarp" target="_blank" rel="noopener">Support on Ko-fi ↗</a></li>
+    </ul>
+  </aside>
+
+  <article class="prose">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+      <p style="font-size: 1.15rem; color: #94a3b8; margin-bottom: 2rem;">{{ . }}</p>
+    {{ end }}
+
+    {{ .Content }}
+  </article>
+</div>
+{{ end }}
