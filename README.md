@@ -1,156 +1,142 @@
-# gown-ted
+<div align="center">
+  <img src="docs/images/app-icon.png" alt="gown-ted logo" width="96" height="96" style="border-radius: 20px; box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);" />
+  <h1>gown-ted</h1>
+  <p><strong>The Intelligent Desktop Text Editor Infused with Princeton WordNet & Computational Poetics</strong></p>
 
-**gown-ted** (*Go WordNet Text Editor*) is an advanced, desktop-class lexical and linguistic text editor built with **Go** ([Wails v3](https://v3.wails.io/)), [Princeton WordNet](https://wordnet.princeton.edu/) (via [gown](https://github.com/raitucarp/gown)), and **React 19 / TypeScript / Chakra UI v3**.
+  <p>
+    <a href="https://github.com/raitucarp/gown-ted/releases/latest"><img src="https://img.shields.io/github/v/release/raitucarp/gown-ted?color=38bdf8&style=flat-square" alt="Latest Release" /></a>
+    <a href="https://github.com/raitucarp/gown-ted/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License MIT" /></a>
+    <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-emerald?style=flat-square" alt="Cross Platform" />
+    <img src="https://img.shields.io/badge/offline-100%25%20local--first-purple?style=flat-square" alt="100% Local-First" />
+  </p>
 
-Designed for writers, linguists, language researchers, poets, and students, gown-ted transforms writing by providing deep lexical insights, sense disambiguation, semantic relations, phonological rhythm, and systemic functional grammar right beside your cursor in real time.
+  <p>
+    <a href="https://raitucarp.github.io/gown-ted/"><strong>Explore Documentation Website ↗</strong></a> &nbsp;|&nbsp;
+    <a href="https://github.com/raitucarp/gown-ted/releases/latest"><strong>Download Latest Release</strong></a> &nbsp;|&nbsp;
+    <a href="https://ko-fi.com/raitucarp"><strong>Support on Ko-fi ❤️</strong></a>
+  </p>
+</div>
 
----
+<br />
 
-## Key Features
+<div align="center">
+  <img src="docs/images/hero-editor.png" alt="gown-ted Editor Interface" width="100%" style="border-radius: 12px; border: 1px solid #1e293b;" />
+</div>
 
-### 1. Distraction-Free Rich Text Editor
-* **Modern Editor Workspace**: Built on TipTap & ProseMirror with clean typographic hierarchy, custom headings, formatting, and responsive selection handling.
-* **Focus Mode**: Hide all sidebars and drawers with a single click or shortcut to immerse yourself entirely in writing.
-* **Sample Texts**: Instant access to built-in linguistic corpus samples (Polysemy in English, Architectural Semantics, Nature & Zoology).
-* **Live Document Analytics**: Real-time word count, character count, sentence count, paragraph count, estimated reading time, speaking time, and lexical richness (**Type-Token Ratio / TTR**).
+<br />
 
-### 2. Multimodal Autocomplete & Word Suggestions
-* **Thread-Safe Prefix Trie**: Instant searching across ~150,000+ WordNet lemmas and synonyms.
-* **Balanced Suggestion Engine**: Blends exact lemma completions, direct synonyms, definition keyword matches, and usage example contexts into a single unified suggestion popup.
-* **Intelligent Proper Noun Ranking**: Capitalized words (proper nouns like *March*, *Monday*, *America*) are automatically positioned at the end of suggestion lists so common words take precedence without losing access to named entities.
-* **Full Keyboard Navigation**: Navigate suggestions with `ArrowUp`, `ArrowDown`, `Enter`, `Tab`, and dismiss with `Escape`.
+## Why gown-ted?
 
-### 3. Word Senses & Polysemy Navigator
-* **POS Vertical Tabs**: Browse lexical senses categorized cleanly by Part of Speech (*Noun*, *Verb*, *Adjective*, *Adverb*) via an intuitive vertical tab rail with rotated count badges and icons.
-* **Word Sense Disambiguation (WSD)**: Automatically detects and highlights the recommended sense in context using the Lesk algorithm against the surrounding sentence.
-* **Sense Breakdown**: Detailed definitions, Lexfile semantic domains, Interlingual Index (ILI) references, and confidence scores.
-* **Seamless Sense List**: Compact, border-separated list without unnecessary margins for maximum reading density.
+Word choice is the soul of writing. Yet typical thesauruses dump flat, context-free lists of synonyms, often leading to awkward phrasing and lost subtleties. 
 
-### 4. Synonyms by Sense (Synonym Studio)
-* **Sense-Partitioned Tabs**: Vertical tab rail on the right side organized per sense (`Sense #1`, `Sense #2`, etc.) with POS-thematic color palettes.
-* **Seamless Action-Oriented List**:
-  * **Replace Selection**: Substitute the active word with the selected synonym in the editor.
-  * **Insert Adjacent**: Insert the synonym right after the active word.
-  * **Copy to Clipboard**: Quick copy with visual confirmation.
-  * **Inspect in WordNet**: Drill down into the synonym's own lexical entry.
+**gown-ted** is built from the ground up for **writers, poets, essayists, researchers, and linguists**. It places the full taxonomic depth of **Princeton WordNet 3.1** and **Open English Wordnet** right beside your cursor:
 
-### 5. Morphology & Semantic Relationships
-* **Cross-POS Morphological Lemmatization**: Automatically resolves inflected forms (*running* &rarr; *run*, *geese* &rarr; *goose*, *better* &rarr; *good*).
-* **Relational Vertical Rail**:
-  * **Lemma Normalization**: Base stems and canonical forms.
-  * **Antonyms**: Opposites and contrasting concepts.
-  * **Hypernyms**: Broader taxonomic categories (*dog* &rarr; *canine* &rarr; *carnivore*).
-  * **Hyponyms**: More specific sub-concepts (*money* &rarr; *cash*, *currency*, *dough*).
-  * **Meronyms**: Constituent parts and member components (*car* &rarr; *accelerator*, *engine*).
-* Direct substitution buttons for all relational concepts.
-
-### 6. Rhythm, Rhymes & Poetics Explorer
-* **Sticky-Top Search Bar**: Quick rhyme and poetic search bar fixed at the top of the panel, remaining accessible while scrolling through long match lists.
-* **Rhyme Discovery**: Phonetic ending (rime/coda) matching with highlighted rhyme segments.
-* **Alliteration Discovery**: Onset consonant cluster matching.
-* **Consonant-Vowel (CV) Rhythm Meter**: Cadence and syllable structure similarity matching.
-* **Syllable Filters**: Instant meter filtering (`All`, `1 Syl`, `2 Syl`, `3+ Syl`).
-* **Seamless Poetic List**: Compact rows with word inspection, insertion, and replacement actions.
-
-### 7. Linguistic & Deep Semantic Analysis
-* **Systemic Functional Linguistics (SFL)**: Clause information structure breakdown into **Theme** (starting point) and **Rheme** (new information).
-* **Pragmatics & Speech Acts**: Automatic illocutionary act categorization, politeness markers, epistemic modality, and sentiment polarity.
-* **Discourse & Cohesion**: Detection of logical connectors, transitional phrases, lexical repetition, and grammatical cohesion.
-* **Definition & Usage Examples**: Side-by-side horizontal cards displaying formal definitions and attested usage quotations.
-
-### 8. Semantic Similarity Calculator
-* Computes **Wu-Palmer Semantic Similarity** between any two words using taxonomy depth and least common subsumer path lengths in the WordNet ontology.
+- **Sense-Aware Synonyms:** Never choose the wrong synonym again. gown-ted automatically disambiguates your sentence context using the Lesk WSD algorithm to highlight the precise meaning you intended.
+- **Musicality & Meter:** Rhyme dictionaries, alliterative onsets, syllable counters, and Consonant-Vowel (CV) cadence analysis help poets and lyricists sculpt rhythm with surgical precision.
+- **Deep Discourse & Grammar:** Explore Theme/Rheme information structure, politeness hedging, and speech acts in a sleek, non-intrusive workspace.
+- **100% Private & Offline:** Your writing never leaves your computer. No AI cloud subscriptions, no tracking, and zero latency.
 
 ---
 
-## Architecture & Technology Stack
+## ✨ Highlights & Key Features
 
-```
-gown-ted/
-├── pkg/                      # Modular Golang Domain Packages
-│   ├── analyzer/             # Morphological, sense, WSD, and discourse orchestrator
-│   ├── models/               # Domain models and DTOs
-│   ├── phonology/            # Syllables and Consonant-Vowel (CV) pattern analysis
-│   ├── poetics/              # Rhyme endings, onsets, and candidate ranking
-│   ├── similarity/           # Wu-Palmer semantic similarity
-│   ├── stats/                # Document counts, reading time, and lexical richness
-│   ├── suggester/            # Multimodal autocomplete and suggestion quotas
-│   └── trie/                 # Thread-safe prefix trie
-├── service/                  # Exported Wails Service Handlers
-│   ├── analyze_document.go   # Document statistics
-│   ├── analyze_word.go       # Deep word analysis
-│   ├── calculate_similarity.go # Semantic similarity
-│   ├── get_poetic_suggestions.go # Rhymes and cadence
-│   ├── get_suggestions.go    # Autocomplete suggestions
-│   └── init.go               # WordNet background indexing
-├── ui/                       # Atomic React 19 / TypeScript Frontend
-│   ├── bindings/             # Auto-generated Wails v3 bindings
-│   └── src/
-│       ├── components/
-│       │   ├── atoms/        # Micro UI elements (Resize handles, status indicators)
-│       │   ├── editor/       # TipTap editor workspace and suggestion popup
-│       │   ├── layout/       # App toolbar, status bar, and container frames
-│       │   ├── organisms/    # Bottom drawer and composite widgets
-│       │   ├── panels/       # Definition, Senses, Synonyms, Poetics, Relations
-│       │   └── ui/           # Chakra UI v3 components & custom scroll areas
-│       ├── hooks/            # Custom hooks (word analysis, stats, editor actions)
-│       ├── utils/            # Lexical icon helpers and formatters
-│       ├── constants/        # Sample texts and app configurations
-│       └── types/            # TypeScript interfaces and domain types
-└── main.go                   # Wails v3 application entry point
-```
+### 🧠 Contextual Sense Disambiguation & Ontology
+- **Smart Lesk WSD:** When you select or type a word, gown-ted reads the surrounding sentence and highlights the most likely synset with a confidence score.
+- **Synonyms by Sense:** Synonyms are grouped strictly by definition and Part of Speech (*Noun*, *Verb*, *Adjective*, *Adverb*), complete with one-click word replacement or insertion.
+- **Taxonomic Tree:** Traverse semantic hierarchies from specific terms (*whisper*) up to broad concepts (*speech* &rarr; *communication* &rarr; *abstraction*).
+- **Wu-Palmer Similarity:** Calculate conceptual affinity and shared ancestors between any two concepts.
 
-### Core Technologies:
-* **Backend**: [Go](https://golang.org/) 1.23+, [Wails v3](https://v3.wails.io/), [gown](https://github.com/raitucarp/gown) (Pure Go Princeton WordNet 3.1 parser).
-* **Frontend**: [React 19](https://react.dev/), [TypeScript 5](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/), [Chakra UI v3](https://chakra-ui.com/), [TipTap](https://tiptap.dev/), [Lucide Icons](https://lucide.dev/).
+<br />
+
+<div align="center">
+  <img src="docs/images/linguistic-analysis.png" alt="Linguistic and Pragmatic Analysis in gown-ted" width="95%" style="border-radius: 10px; border: 1px solid #1e293b;" />
+</div>
+
+<br />
+
+### 🎵 Poetics, Rhyme & Rhythm Studio
+- **Accurate Syllable Counting:** Real-time syllable metrics for every selected word.
+- **Rhyme Discovery:** Filter perfect and near rhymes by meter (`All`, `1 Syl`, `2 Syl`, `3+ Syl`).
+- **Alliteration & Onsets:** Discover words sharing identical consonant onsets to weave musicality into verse.
+- **CV Rhythmic Patterns:** Match rhythmic cadences (e.g. `CVCCVC`) across lines for subtle internal harmony.
+
+### 📊 Real-Time Document Analytics
+- **Live Status Bar:** Words, characters, sentences, paragraphs, reading time, and speaking time calculated as you write.
+- **Lexical Diversity:** Measures vocabulary richness (**Type-Token Ratio / TTR**) to identify repetitive diction.
+
+### 🎨 Distraction-Free Dark Workspace
+- **Chakra UI v3 Theming:** Deep slate palette, customizable font sizes, and smooth resizing panels.
+- **Focus Mode (`Ctrl + Shift + F`):** Collapse all sidebars and toolbars with one keystroke for pure, uninterrupted writing.
+- **Local File Explorer:** Open, edit, and organize `.txt` and `.md` documents in your working folders.
 
 ---
 
-## Getting Started
+## 🚀 Quick Start & Installation
 
-### Prerequisites
-* **Go**: Version 1.23 or newer.
-* **Node.js**: Version 20.x or newer (with `npm`).
-* **Wails v3 CLI**: Installed and accessible in your `PATH`.
+### Windows (Precompiled Standalone)
+1. Download the latest `gown-ted-windows-amd64.zip` from [GitHub Releases](https://github.com/raitucarp/gown-ted/releases/latest).
+2. Extract the `.zip` archive to your preferred directory.
+3. Launch `gown-ted.exe` and begin writing!
 
-### Development Mode
+### macOS & Linux
+Precompiled binaries for macOS and Linux are coming with our automated GitHub Actions release workflow. In the meantime, you can easily build from source:
 
-1. Install frontend dependencies:
-   ```bash
-   cd ui
-   npm install
-   cd ..
-   ```
-
-2. Run the application with hot-reloading:
-   ```bash
-   wails3 dev
-   ```
-
-### Building for Production
-
-Compile a native standalone desktop executable:
 ```bash
-wails3 build
-```
-The resulting binary will be generated in the `build/bin` directory.
+# 1. Clone repository
+git clone https://github.com/raitucarp/gown-ted.git
+cd gown-ted
 
-### Running Tests
+# 2. Build UI assets
+cd ui && npm install && npm run build && cd ..
 
-Run the full Go test suite:
-```bash
-go test -v ./...
-```
-
-Run frontend typecheck and build validation:
-```bash
-cd ui
-npm run build
+# 3. Run or build with Wails v3
+wails3 dev      # Run in development mode
+wails3 build    # Compile standalone binary
 ```
 
 ---
 
-## License
+## ⌨️ Essential Keyboard Shortcuts
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-Princeton WordNet is subject to the [WordNet 3.0 License](https://wordnet.princeton.edu/license-and-commercial-use).
+| Shortcut (Win / Linux) | Shortcut (macOS) | Action |
+|---|---|---|
+| `Ctrl + N` | `Cmd + N` | Open New Document Tab |
+| `Ctrl + O` | `Cmd + O` | Open File from Disk |
+| `Ctrl + S` | `Cmd + S` | Save Current Document |
+| `Ctrl + W` | `Cmd + W` | Close Active Tab |
+| `Ctrl + Shift + F` | `Cmd + Shift + F` | **Toggle Focus Mode** (Hide/Show Panels) |
+| `Ctrl + B` / `Ctrl + I` | `Cmd + B` / `Cmd + I` | Bold / Italic Formatting |
+| `Ctrl + Z` / `Ctrl + Y` | `Cmd + Z` / `Cmd + Shift + Z` | Undo / Redo |
+| `↑` / `↓` / `Enter` | `↑` / `↓` / `Enter` | Navigate & Accept Autocomplete Suggestions |
+| `Escape` | `Escape` | Dismiss WordNet Suggestion Popup |
+
+---
+
+## 📖 Comprehensive Documentation
+
+Looking for deep dives into WordNet ontology, phonological models, or systemic functional grammar?
+
+👉 **Read the full online documentation at: [https://raitucarp.github.io/gown-ted/](https://raitucarp.github.io/gown-ted/)**
+
+- [Getting Started Guide](https://raitucarp.github.io/gown-ted/docs/getting-started/)
+- [Core Features & Lexical Suite](https://raitucarp.github.io/gown-ted/docs/features/)
+- [Poetics, Rhyme & Meter Guide](https://raitucarp.github.io/gown-ted/docs/poetics-and-rhyme/)
+- [Complete Keyboard Reference](https://raitucarp.github.io/gown-ted/docs/keyboard-shortcuts/)
+
+---
+
+## 🤝 Contributing & Community
+
+gown-ted is free, open-source software built for the writing and research community.
+
+- **Found a bug or have an idea?** Open an issue on [GitHub Issues](https://github.com/raitucarp/gown-ted/issues).
+- **Want to contribute?** Pull requests are warmly welcomed!
+- **Love gown-ted?** Star this repository or support development on [Ko-fi](https://ko-fi.com/raitucarp).
+
+---
+
+## 📄 License
+
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more information.
+
+*Built with ❤️ by [Ribhararnus Pracutiar (@raitucarp)](https://github.com/raitucarp)*
