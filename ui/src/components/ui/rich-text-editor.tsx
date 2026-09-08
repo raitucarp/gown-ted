@@ -90,18 +90,67 @@ export const RichTextEditorContent = React.forwardRef<
 >(function RichTextEditorContent(props, ref) {
   const { editor } = useRichTextEditorContext();
   if (!editor) return null;
+
+  const handleFocusEditor = (e: React.MouseEvent) => {
+    // If the click is inside an existing text element, native caret placement handles it.
+    // If clicking in empty space below or around, focus at the end of the document.
+    const target = e.target as HTMLElement;
+    const isDirectTextElement = target.closest(".tiptap > *");
+    if (!isDirectTextElement) {
+      editor.commands.focus("end");
+    }
+  };
+
   return (
-    <PanelScrollArea p="5" flex="1">
+    <PanelScrollArea
+      p="5"
+      flex="1"
+      cursor="text"
+      onClick={handleFocusEditor}
+      contentStyle={{
+        minHeight: "100%",
+        display: "flex",
+        flexDirection: "column",
+        cursor: "text",
+      }}
+    >
       <Box
         ref={ref}
+        flex="1"
+        display="flex"
+        flexDirection="column"
+        minHeight="100%"
+        cursor="text"
+        onClick={handleFocusEditor}
         css={{
+          flex: "1",
+          minHeight: "100%",
+          display: "flex",
+          flexDirection: "column",
+          cursor: "text",
+          "& > div": {
+            flex: "1",
+            minHeight: "100%",
+            display: "flex",
+            flexDirection: "column",
+            cursor: "text",
+          },
           "& .tiptap": {
             outline: "none",
+            flex: "1",
             minHeight: "100%",
+            cursor: "text",
             lineHeight: "1.7",
             fontSize: "1.05rem",
             color: "#E2E8F0",
             fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+            "& p.is-editor-empty:first-child::before, & p.is-empty:first-child::before": {
+              color: "#718096",
+              content: "attr(data-placeholder)",
+              float: "left",
+              height: 0,
+              pointerEvents: "none",
+            },
             "& > * + *": {
               marginTop: "0.85em",
             },
@@ -176,27 +225,33 @@ export const RichTextEditorContent = React.forwardRef<
 
 export const ControlButton: React.FC<{
   isActive?: boolean;
+  disabled?: boolean;
   onClick: () => void;
   title: string;
   icon: React.ReactNode;
-}> = ({ isActive, onClick, title, icon }) => {
+}> = ({ isActive, disabled, onClick, title, icon }) => {
   return (
     <IconButton
       size="xs"
       variant={isActive ? "solid" : "ghost"}
       colorPalette={isActive ? "blue" : "gray"}
       color={isActive ? "white" : "gray.300"}
-      _hover={{ bg: isActive ? "blue.500" : "gray.800", color: "white" }}
-      onClick={onClick}
-      title={title}
+      _hover={{ bg: disabled ? "transparent" : isActive ? "blue.500" : "gray.800", color: disabled ? "gray.500" : "white" }}
+      onClick={disabled ? undefined : onClick}
+      title={disabled ? "WYSIWYG formatting is disabled for plain text (.txt) files" : title}
       aria-label={title}
+      disabled={disabled}
+      opacity={disabled ? 0.35 : 1}
+      cursor={disabled ? "not-allowed" : "pointer"}
     >
       {icon}
     </IconButton>
   );
 };
 
-export const RichTextEditorToolbarControls: React.FC = () => {
+export const RichTextEditorToolbarControls: React.FC<{ isPlainMode?: boolean }> = ({
+  isPlainMode = false,
+}) => {
   const { editor } = useRichTextEditorContext();
   if (!editor) return null;
 
@@ -204,31 +259,36 @@ export const RichTextEditorToolbarControls: React.FC = () => {
     <RichTextEditorToolbar>
       <RichTextEditorControlGroup>
         <ControlButton
-          isActive={editor.isActive("bold")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("bold")}
           onClick={() => editor.chain().focus().toggleBold().run()}
           title="Bold (Ctrl+B)"
           icon={<LuBold size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("italic")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("italic")}
           onClick={() => editor.chain().focus().toggleItalic().run()}
           title="Italic (Ctrl+I)"
           icon={<LuItalic size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("underline")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("underline")}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           title="Underline (Ctrl+U)"
           icon={<LuUnderline size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("strike")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("strike")}
           onClick={() => editor.chain().focus().toggleStrike().run()}
           title="Strikethrough"
           icon={<LuStrikethrough size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("code")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("code")}
           onClick={() => editor.chain().focus().toggleCode().run()}
           title="Inline Code"
           icon={<LuCode size={15} />}
@@ -237,19 +297,22 @@ export const RichTextEditorToolbarControls: React.FC = () => {
 
       <RichTextEditorControlGroup>
         <ControlButton
-          isActive={editor.isActive("heading", { level: 1 })}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("heading", { level: 1 })}
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           title="Heading 1"
           icon={<LuHeading1 size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("heading", { level: 2 })}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("heading", { level: 2 })}
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           title="Heading 2"
           icon={<LuHeading2 size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("heading", { level: 3 })}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("heading", { level: 3 })}
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
           title="Heading 3"
           icon={<LuHeading3 size={15} />}
@@ -258,19 +321,22 @@ export const RichTextEditorToolbarControls: React.FC = () => {
 
       <RichTextEditorControlGroup>
         <ControlButton
-          isActive={editor.isActive("bulletList")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("bulletList")}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           title="Bullet List"
           icon={<LuList size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("orderedList")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("orderedList")}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           title="Numbered List"
           icon={<LuListOrdered size={15} />}
         />
         <ControlButton
-          isActive={editor.isActive("blockquote")}
+          disabled={isPlainMode}
+          isActive={!isPlainMode && editor.isActive("blockquote")}
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           title="Blockquote"
           icon={<LuQuote size={15} />}
@@ -279,6 +345,7 @@ export const RichTextEditorToolbarControls: React.FC = () => {
 
       <RichTextEditorControlGroup>
         <ControlButton
+          disabled={isPlainMode}
           onClick={() => editor.chain().focus().unsetAllMarks().clearNodes().run()}
           title="Clear Formatting"
           icon={<LuRemoveFormatting size={15} />}
@@ -297,6 +364,24 @@ export const RichTextEditorToolbarControls: React.FC = () => {
           icon={<LuRedo size={15} />}
         />
       </RichTextEditorControlGroup>
+
+      {isPlainMode && (
+        <HStack ml="auto" pr="2" gap="1.5">
+          <Box
+            fontSize="xs"
+            color="yellow.300"
+            bg="yellow.950/50"
+            borderColor="yellow.800/70"
+            borderWidth="1px"
+            px="2.5"
+            py="1"
+            borderRadius="md"
+            fontWeight="medium"
+          >
+            Plain Text Mode — WYSIWYG Disabled
+          </Box>
+        </HStack>
+      )}
     </RichTextEditorToolbar>
   );
 };

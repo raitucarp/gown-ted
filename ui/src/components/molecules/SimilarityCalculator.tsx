@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Box, HStack, Text, Input, Button, Progress, Badge } from "@chakra-ui/react";
-import { LuBinary } from "react-icons/lu";
+import { Box, HStack, Text, Input, Button, Progress, Badge, Group } from "@chakra-ui/react";
+import { LuBinary, LuTrendingUp } from "react-icons/lu";
 import { CalculateSimilarity } from "@bindings/github.com/raitucarp/gown-ted/service/lexicalservice.js";
 import type { SimilarityResult } from "@types";
 
@@ -37,26 +37,31 @@ export const SimilarityCalculator: React.FC<SimilarityCalculatorProps> = ({
         </Text>
       </HStack>
 
-      <HStack gap="2" mb="2">
+      <Group attached w="full" mb="2">
         <Input
-          size="xs"
+          size="sm"
           placeholder="Compare against word..."
           value={compareWord}
           onChange={(e) => setCompareWord(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleCalculate()}
           bg="gray.900"
           borderColor="gray.750"
+          px="3.5"
+          _focus={{ borderColor: "blue.500", zIndex: 1 }}
         />
         <Button
-          size="xs"
+          size="sm"
+          variant="solid"
           colorPalette="blue"
           onClick={handleCalculate}
           loading={loading}
           disabled={!activeWord || !compareWord.trim()}
+          px="3.5"
         >
+          <LuTrendingUp size={13} />
           Compare
         </Button>
-      </HStack>
+      </Group>
 
       {similarity && (
         <Box mt="2" p="2" bg="gray.900" borderRadius="md" borderWidth="1px" borderColor="gray.800">

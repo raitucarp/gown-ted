@@ -703,8 +703,9 @@ export const ExtendedAnalysisPanel: React.FC<ExtendedAnalysisPanelProps> = ({
                 <Input
                   size="sm"
                   variant="outline"
-                  borderColor="gray.700"
-                  bg="gray.950"
+                  borderColor="gray.750"
+                  bg="gray.900"
+                  px="3.5"
                   _focus={{ borderColor: "blue.500", zIndex: 1 }}
                   placeholder="e.g. canine, wolf, bank"
                   value={compareWord}
@@ -719,7 +720,7 @@ export const ExtendedAnalysisPanel: React.FC<ExtendedAnalysisPanelProps> = ({
                   colorPalette="blue"
                   onClick={handleCalculateSimilarity}
                   loading={simLoading}
-                  px="4"
+                  px="3.5"
                   flexShrink={0}
                 >
                   <LuTrendingUp size={13} />

@@ -10,6 +10,7 @@ import {
   Tabs,
   Input,
   InputGroup,
+  Group,
   Stat,
   EmptyState,
 } from "@chakra-ui/react";
@@ -252,38 +253,35 @@ export const PoeticsPanel: React.FC<PoeticsPanelProps> = ({
               bg="gray.950"
               flexShrink={0}
             >
-              <HStack gap="1.5" w="full" align="stretch">
-                <InputGroup flex="1" startElement={<LuSearch size={14} color="var(--chakra-colors-gray-400, #9CA3AF)" />}>
-                  <Input
-                    size="xs"
-                    variant="outline"
-                    borderColor="gray.800"
-                    bg="gray.900"
-                    borderRadius="md"
-                    _focus={{ borderColor: "yellow.400", bg: "gray.850" }}
-                    placeholder="Search rhymes for word..."
-                    value={poeticsSearch}
-                    onChange={(e) => setPoeticsSearch(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleSearchPoetics(poeticsSearch);
-                    }}
-                  />
-                </InputGroup>
+              <Group attached w="full">
+                <Input
+                  size="sm"
+                  variant="outline"
+                  borderColor="gray.750"
+                  bg="gray.900"
+                  px="3.5"
+                  _focus={{ borderColor: "blue.500", zIndex: 1 }}
+                  placeholder="Search rhymes for word..."
+                  value={poeticsSearch}
+                  onChange={(e) => setPoeticsSearch(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearchPoetics(poeticsSearch);
+                  }}
+                />
                 <Button
-                  size="xs"
+                  size="sm"
                   variant="solid"
-                  colorPalette="yellow"
-                  color="gray.950"
+                  colorPalette="blue"
                   onClick={() => handleSearchPoetics(poeticsSearch)}
                   loading={poeticsLoading}
-                  px="3"
-                  borderRadius="md"
-                  fontWeight="bold"
+                  px="3.5"
+                  fontWeight="medium"
                   flexShrink={0}
                 >
+                  <LuSearch size={14} />
                   Find
                 </Button>
-              </HStack>
+              </Group>
             </Box>
 
             {/* Scroll Area for Word Metrics, Category & Meter Header, and Results List */}

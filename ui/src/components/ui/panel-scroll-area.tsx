@@ -8,6 +8,9 @@ interface PanelScrollAreaProps {
   flex?: string | number;
   p?: string | number;
   className?: string;
+  cursor?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  contentStyle?: React.CSSProperties;
 }
 
 export const PanelScrollArea: React.FC<PanelScrollAreaProps> = ({
@@ -17,6 +20,9 @@ export const PanelScrollArea: React.FC<PanelScrollAreaProps> = ({
   flex = "1",
   p,
   className,
+  cursor,
+  onClick,
+  contentStyle,
 }) => {
   return (
     <ScrollArea.Root
@@ -28,9 +34,21 @@ export const PanelScrollArea: React.FC<PanelScrollAreaProps> = ({
       minH="0"
       w="100%"
       className={className}
+      cursor={cursor}
+      onClick={onClick}
     >
-      <ScrollArea.Viewport style={{ height: "100%", width: "100%" }}>
-        <ScrollArea.Content p={p} style={{ minWidth: "100%" }}>
+      <ScrollArea.Viewport style={{ height: "100%", width: "100%", cursor }}>
+        <ScrollArea.Content
+          p={p}
+          style={{
+            minWidth: "100%",
+            minHeight: "100%",
+            display: "flex",
+            flexDirection: "column",
+            cursor,
+            ...contentStyle,
+          }}
+        >
           {children}
         </ScrollArea.Content>
       </ScrollArea.Viewport>
