@@ -1,10 +1,28 @@
 .task
 bin
 *.exe
+*.zip
+*.tar.gz
+*.dmg
+*.AppImage
+*.syso
+
+# Node & Frontend
 ui/dist
 ui/node_modules
+
+# Hugo cache & default public
+website/public
+website/resources/_gen
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Build artifacts
 build/linux/appimage/build
 build/windows/nsis/MicrosoftEdgeWebview2Setup.exe
+
 # Mobile generated (per-machine; overlays hold absolute paths)
 build/ios/xcode/overlay.json
 build/ios/xcode/gen/
