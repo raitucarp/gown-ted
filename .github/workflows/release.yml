@@ -1,0 +1,226 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag (e.g. v0.1.0)'
+        required: false
+        default: 'v0.1.0'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-windows:
+    name: Build Windows (amd64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Install Wails v3 CLI
+        run: |
+          go install github.com/wailsapp/wails/v3/cmd/wails3@latest
+
+      - name: Build Frontend Assets
+        run: |
+          cd ui
+          npm ci
+          npm run build
+          cd ..
+
+      - name: Generate Windows Syso Icon & Manifest
+        run: |
+          cd build
+          wails3 generate syso -arch amd64 -icon windows/icon.ico -manifest windows/wails.exe.manifest -info windows/info.json -out ../wails_windows_amd64.syso
+          cd ..
+
+      - name: Compile Windows Binary
+        run: |
+          go build -tags production -trimpath -buildvcs=false -ldflags="-w -s -H windowsgui" -o bin/gown-ted.exe
+
+      - name: Package Windows ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive -Path bin/gown-ted.exe -DestinationPath bin/gown-ted-windows-amd64.zip -Force
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gown-ted-windows-amd64
+          path: bin/gown-ted-windows-amd64.zip
+          retention-days: 7
+
+  build-macos:
+    name: Build macOS (Universal / DMG)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Install Wails v3 CLI
+        run: |
+          go install github.com/wailsapp/wails/v3/cmd/wails3@latest
+
+      - name: Build Frontend Assets
+        run: |
+          cd ui
+          npm ci
+          npm run build
+          cd ..
+
+      - name: Compile & Package macOS App Bundle
+        run: |
+          mkdir -p bin/gown-ted.app/Contents/MacOS
+          mkdir -p bin/gown-ted.app/Contents/Resources
+          cp build/darwin/icons.icns bin/gown-ted.app/Contents/Resources/icons.icns
+          cp build/darwin/Info.plist bin/gown-ted.app/Contents/Info.plist
+          CGO_ENABLED=1 go build -tags production -trimpath -buildvcs=false -ldflags="-w -s" -o bin/gown-ted.app/Contents/MacOS/gown-ted
+          cd bin
+          tar -czvf gown-ted-macos-arm64.tar.gz gown-ted.app
+          cd ..
+
+      - name: Upload macOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gown-ted-macos-arm64
+          path: bin/gown-ted-macos-arm64.tar.gz
+          retention-days: 7
+
+  build-linux:
+    name: Build Linux (amd64)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Linux Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ui/package-lock.json
+
+      - name: Install Wails v3 CLI
+        run: |
+          go install github.com/wailsapp/wails/v3/cmd/wails3@latest
+
+      - name: Build Frontend Assets
+        run: |
+          cd ui
+          npm ci
+          npm run build
+          cd ..
+
+      - name: Compile Linux Binary
+        run: |
+          mkdir -p bin
+          go build -tags production -trimpath -buildvcs=false -ldflags="-w -s" -o bin/gown-ted
+
+      - name: Package Linux Archive
+        run: |
+          cd bin
+          tar -czvf gown-ted-linux-amd64.tar.gz gown-ted
+          cd ..
+
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gown-ted-linux-amd64
+          path: bin/gown-ted-linux-amd64.tar.gz
+          retention-days: 7
+
+  release:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download Windows Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: gown-ted-windows-amd64
+          path: release-assets
+
+      - name: Download macOS Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: gown-ted-macos-arm64
+          path: release-assets
+
+      - name: Download Linux Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: gown-ted-linux-amd64
+          path: release-assets
+
+      - name: Determine Release Tag
+        id: vars
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          elif [[ -n "${{ github.event.inputs.tag_name }}" ]]; then
+            echo "tag=${{ github.event.inputs.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=v0.1.0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: "gown-ted ${{ steps.vars.outputs.tag }} — Intelligent Lexical & Poetics Text Editor"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
