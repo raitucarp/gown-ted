@@ -200,7 +200,7 @@ jobs:
           name: "gown-ted ${{ steps.vars.outputs.tag }} — Intelligent Lexical & Poetics Text Editor"
           draft: false
           prerelease: false
-          generate_release_notes: true
+          body_path: .github/release-notes.md
           files: |
             release-assets/*
         env:
