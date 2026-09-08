@@ -481,7 +481,7 @@ export const DefinitionPanel: React.FC<DefinitionPanelProps> = ({
         {/* Tab 3: Pragmatics & Speech Acts */}
         <Tabs.Content value="pragmatics" flex="1" p="0" minH="0" display="flex" flexDirection="column">
           <PanelScrollArea p="3.5">
-            {pragmatics && (pragmatics.speechAct.class || pragmatics.politeness.strategy) ? (
+            {pragmatics && (pragmatics.speechAct?.class || pragmatics.politeness?.strategy) ? (
               <VStack align="stretch" gap="3.5">
                 {/* Illocutionary Force */}
                 <Box p="3" bg="gray.850" borderRadius="lg" borderWidth="1px" borderColor="gray.800">
@@ -490,16 +490,16 @@ export const DefinitionPanel: React.FC<DefinitionPanelProps> = ({
                     <HStack justify="space-between" mt="1.5">
                       <HStack gap="2">
                         <Stat.ValueText fontSize="md" fontWeight="bold" color="purple.200" textTransform="capitalize">
-                          {pragmatics.speechAct.class || "Assertive"}
+                          {pragmatics.speechAct?.class || "Assertive"}
                         </Stat.ValueText>
-                        {pragmatics.speechAct.performative_verb && (
+                        {pragmatics.speechAct?.performative_verb && (
                           <Badge size="xs" variant="outline" colorPalette="purple">
                             verb: {pragmatics.speechAct.performative_verb}
                           </Badge>
                         )}
                       </HStack>
                       <Badge size="sm" colorPalette="purple" variant="surface">
-                        {(pragmatics.speechAct.confidence * 100).toFixed(0)}% Confidence
+                        {((pragmatics.speechAct?.confidence || 0) * 100).toFixed(0)}% Confidence
                       </Badge>
                     </HStack>
                   </Stat.Root>
@@ -513,18 +513,18 @@ export const DefinitionPanel: React.FC<DefinitionPanelProps> = ({
                         Interpersonal Politeness Strategy
                       </Text>
                       <Badge size="sm" variant="subtle" colorPalette="teal" mt="1">
-                        {pragmatics.politeness.strategy || "Standard Communication"}
+                        {pragmatics.politeness?.strategy || "Standard Communication"}
                       </Badge>
                     </Box>
                     <Box textAlign="right">
                       <Text fontSize="xs" color="gray.400">Hedge / Mitigation Score</Text>
                       <Text fontSize="sm" fontWeight="bold" color="teal.200">
-                        {(pragmatics.politeness.hedge_score * 100).toFixed(0)}%
+                        {((pragmatics.politeness?.hedge_score || 0) * 100).toFixed(0)}%
                       </Text>
                     </Box>
                   </HStack>
 
-                  {pragmatics.politeness.mitigation_tags && pragmatics.politeness.mitigation_tags.length > 0 && (
+                  {pragmatics.politeness?.mitigation_tags && pragmatics.politeness.mitigation_tags.length > 0 && (
                     <Box mt="2">
                       <Text fontSize="xs" color="gray.400" mb="1">Mitigation Elements Detected:</Text>
                       <HStack flexWrap="wrap" gap="1.5">

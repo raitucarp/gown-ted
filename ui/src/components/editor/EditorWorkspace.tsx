@@ -170,13 +170,13 @@ export const EditorWorkspace: React.FC<EditorWorkspaceProps> = ({
           if (results && results.length > 0) {
             // Ensure words starting with a capital letter are placed at the very end
             const normal = results.filter((item) => {
-              const trimmed = item.word.trim();
+              const trimmed = (item?.word || "").trim();
               if (!trimmed) return true;
               const first = trimmed.charAt(0);
               return !(first >= "A" && first <= "Z");
             });
             const capitalized = results.filter((item) => {
-              const trimmed = item.word.trim();
+              const trimmed = (item?.word || "").trim();
               if (!trimmed) return false;
               const first = trimmed.charAt(0);
               return first >= "A" && first <= "Z";
