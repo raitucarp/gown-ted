@@ -13,12 +13,14 @@ var assets embed.FS
 
 func main() {
 	lexicalService := service.NewLexicalService()
+	fileService := service.NewFileService()
 
 	app := application.New(application.Options{
 		Name:        "gown-ted",
 		Description: "Intelligent English Text Editor powered by Go WordNet",
 		Services: []application.Service{
 			application.NewService(lexicalService),
+			application.NewService(fileService),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),

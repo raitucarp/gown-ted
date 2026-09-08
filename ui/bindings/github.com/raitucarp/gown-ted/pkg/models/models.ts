@@ -15,6 +15,15 @@ import * as functional$0 from "../../../gown/functional/models.js";
 import * as pragmatics$0 from "../../../gown/pragmatics/models.js";
 
 /**
+ * DirectoryListing contains files in the current directory.
+ */
+export interface DirectoryListing {
+    "currentDir": string;
+    "dirName": string;
+    "files": FileItem[] | null;
+}
+
+/**
  * DiscourseInfo captures thematic progression and coherence across sentences.
  */
 export interface DiscourseInfo {
@@ -34,6 +43,28 @@ export interface DocumentStats {
     "speakingTimeMinutes": number;
     "uniqueWords": number;
     "vocabularyRichness": number;
+}
+
+/**
+ * FileContentPayload represents the retrieved content of a file.
+ */
+export interface FileContentPayload {
+    "name": string;
+    "path": string;
+    "extension": string;
+    "content": string;
+    "size": number;
+}
+
+/**
+ * FileItem represents a discovered file in the current directory.
+ */
+export interface FileItem {
+    "name": string;
+    "path": string;
+    "extension": string;
+    "size": number;
+    "modTime": number;
 }
 
 /**
