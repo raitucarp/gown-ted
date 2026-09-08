@@ -91,10 +91,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ui/package-lock.json
 
-      - name: Install Wails v3 CLI
-        run: |
-          go install github.com/wailsapp/wails/v3/cmd/wails3@latest
-
       - name: Build Frontend Assets
         run: |
           cd ui
@@ -145,10 +141,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: ui/package-lock.json
 
-      - name: Install Wails v3 CLI
-        run: |
-          go install github.com/wailsapp/wails/v3/cmd/wails3@latest
-
       - name: Build Frontend Assets
         run: |
           cd ui
@@ -183,23 +175,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Download Windows Artifact
+      - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: gown-ted-windows-amd64
+          pattern: gown-ted-*
           path: release-assets
-
-      - name: Download macOS Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: gown-ted-macos-arm64
-          path: release-assets
-
-      - name: Download Linux Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: gown-ted-linux-amd64
-          path: release-assets
+          merge-multiple: true
 
       - name: Determine Release Tag
         id: vars
