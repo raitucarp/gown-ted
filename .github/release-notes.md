@@ -48,7 +48,7 @@ Creating **gown-ted** is an independent labor of love—an endeavor dedicated to
 
 If **gown-ted** inspires your work, unlocks a forgotten word, or helps bring a stanza to life, please consider supporting its continued development:
 
-👉 **[Support Ribhararnus on Ko-fi (Buy Me a Coffee)](https://ko-fi.com/raitucarp)**
+👉 **[Support raitucarp on Ko-fi (Buy Me a Coffee)](https://ko-fi.com/raitucarp)**
 
 Your support directly funds future lexical modules, dictionary expansions, and continuous improvements to the editor. 
 
