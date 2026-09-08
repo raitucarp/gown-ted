@@ -2,22 +2,23 @@ import React from "react";
 import { Flex, HStack, Box } from "@chakra-ui/react";
 import { AppToolbar } from "@components/layout/AppToolbar";
 import { AppStatusBar } from "@components/layout/AppStatusBar";
+import { EditorTabBar } from "@components/layout/EditorTabBar";
 import { EditorWorkspace } from "@components/editor/EditorWorkspace";
 import { LeftSidebar } from "@organisms/layout/LeftSidebar";
 import { RightSidebar } from "@organisms/layout/RightSidebar";
 import { BottomDrawer } from "@organisms/layout/BottomDrawer";
-import { SAMPLES } from "@constants/samples";
+import { AboutModal } from "@components/dialogs/AboutModal";
 import type {
   LexicalAnalysisResult,
   WordContext,
   WordSenseItem,
   DocumentStats,
+  EditorTab,
 } from "@types";
 
 interface AppLayoutProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
-  onNewDocument: () => void;
   onLoadSample: (key: string) => void;
   isBackendReady: boolean;
   // Left sidebar
@@ -67,6 +68,32 @@ interface AppLayoutProps {
   onInspectWord: (word: string) => void;
   onReplaceWord: (replacement: string) => void;
   onInsertWord: (insertion: string) => void;
+  // Tabs & File Explorer
+  tabs: EditorTab[];
+  activeTabId: string;
+  onSelectTab: (tabId: string) => void;
+  onCloseTab: (tabId: string) => void;
+  onNewTab: () => void;
+  onOpenFileFromExplorer: (filePath: string) => void;
+  activeFilePath?: string;
+  currentFolder: string | null;
+  onOpenFolder: () => void;
+  onCloseFolder?: () => void;
+  isPlainMode?: boolean;
+  // Toolbar File & Help actions
+  onOpenFile: () => void;
+  recentFiles: string[];
+  recentFolders: string[];
+  onSelectRecentFile: (path: string) => void;
+  onSelectRecentFolder: (path: string) => void;
+  onClearRecentFiles: () => void;
+  onClearRecentFolders: () => void;
+  onSave: () => void;
+  onSaveAs: () => void;
+  // About dialog
+  isAboutOpen: boolean;
+  onOpenAbout: () => void;
+  onCloseAbout: () => void;
   // Status
   stats: DocumentStats;
 }
@@ -74,7 +101,6 @@ interface AppLayoutProps {
 export const AppLayout: React.FC<AppLayoutProps> = ({
   isFocusMode,
   onToggleFocusMode,
-  onNewDocument,
   onLoadSample,
   isBackendReady,
   leftWidth,
@@ -120,6 +146,29 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onInspectWord,
   onReplaceWord,
   onInsertWord,
+  tabs,
+  activeTabId,
+  onSelectTab,
+  onCloseTab,
+  onNewTab,
+  onOpenFileFromExplorer,
+  activeFilePath,
+  currentFolder,
+  onOpenFolder,
+  onCloseFolder,
+  isPlainMode = false,
+  onOpenFile,
+  recentFiles,
+  recentFolders,
+  onSelectRecentFile,
+  onSelectRecentFolder,
+  onClearRecentFiles,
+  onClearRecentFolders,
+  onSave,
+  onSaveAs,
+  isAboutOpen,
+  onOpenAbout,
+  onCloseAbout,
   stats,
 }) => {
   return (
@@ -127,7 +176,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <AppToolbar
         isFocusMode={isFocusMode}
         onToggleFocusMode={onToggleFocusMode}
-        onNewDocument={onNewDocument}
         onLoadSample={onLoadSample}
         isBackendReady={isBackendReady}
         isLeftOpen={!isLeftCollapsed}
@@ -136,6 +184,17 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onToggleRight={() => (isRightCollapsed ? onExpandRight() : onCollapseRight())}
         isBottomOpen={!isBottomCollapsed}
         onToggleBottom={() => (isBottomCollapsed ? onExpandBottom() : onCollapseBottom())}
+        onOpenFile={onOpenFile}
+        onOpenFolder={onOpenFolder}
+        recentFiles={recentFiles}
+        recentFolders={recentFolders}
+        onSelectRecentFile={onSelectRecentFile}
+        onSelectRecentFolder={onSelectRecentFolder}
+        onClearRecentFiles={onClearRecentFiles}
+        onClearRecentFolders={onClearRecentFolders}
+        onSave={onSave}
+        onSaveAs={onSaveAs}
+        onOpenAbout={onOpenAbout}
       />
 
       <HStack flex="1" gap={0} alignItems="stretch" overflow="hidden">
@@ -151,6 +210,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             setIsLeftTopCollapsed={setIsLeftTopCollapsed}
             isLeftBottomCollapsed={isLeftBottomCollapsed}
             setIsLeftBottomCollapsed={setIsLeftBottomCollapsed}
+            onOpenFile={onOpenFileFromExplorer}
+            activeFilePath={activeFilePath}
+            currentFolder={currentFolder}
+            onOpenFolder={onOpenFolder}
+            onCloseFolder={onCloseFolder}
             handleResizeLeft={handleResizeLeft}
             analysisResult={analysisResult}
             activeWordContext={activeWordContext}
@@ -163,9 +227,18 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         )}
 
         <Flex flex="1" direction="column" h="100%" overflow="hidden">
+          <EditorTabBar
+            tabs={tabs}
+            activeTabId={activeTabId}
+            onSelectTab={onSelectTab}
+            onCloseTab={onCloseTab}
+            onNewTab={onNewTab}
+          />
+
           <Box flex="1" overflow="hidden">
             <EditorWorkspace
-              initialContent={SAMPLES.polysemy}
+              initialContent=""
+              isPlainMode={isPlainMode}
               onActiveWordChange={onActiveWordChange}
               onDocumentChange={onDocumentChange}
               editorRef={editorRef}
@@ -218,6 +291,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         activeWord={activeWordContext?.word || ""}
         activeLemma={analysisResult?.primaryLemma || ""}
       />
+
+      <AboutModal isOpen={isAboutOpen} onClose={onCloseAbout} />
     </Flex>
   );
 };

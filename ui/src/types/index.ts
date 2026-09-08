@@ -4,3 +4,4 @@ export * from "./stats.types";
 export * from "./linguistics.types";
 export * from "./editor.types";
 export * from "./layout.types";
+export * from "./file.types";

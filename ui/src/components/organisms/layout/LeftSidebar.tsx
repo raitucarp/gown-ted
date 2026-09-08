@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, HStack, Text, Badge, IconButton } from "@chakra-ui/react";
 import {
   LuPanelLeftOpen,
@@ -6,7 +6,9 @@ import {
   LuGitBranch,
   LuChevronDown,
   LuChevronUp,
+  LuFolder,
 } from "react-icons/lu";
+import { FileExplorerPanel } from "@components/panels/FileExplorerPanel";
 import { WordSensesPanel } from "@components/panels/WordSensesPanel";
 import { RelationshipsPanel } from "@components/panels/RelationshipsPanel";
 import { ResizeHandle } from "@components/layout/ResizeHandle";
@@ -24,6 +26,13 @@ interface LeftSidebarProps {
   setIsLeftTopCollapsed: (collapsed: boolean) => void;
   isLeftBottomCollapsed: boolean;
   setIsLeftBottomCollapsed: (collapsed: boolean) => void;
+  isFileExplorerCollapsed?: boolean;
+  setIsFileExplorerCollapsed?: (collapsed: boolean) => void;
+  onOpenFile: (filePath: string) => void;
+  activeFilePath?: string;
+  currentFolder: string | null;
+  onOpenFolder: () => void;
+  onCloseFolder?: () => void;
   handleResizeLeft: (delta: number) => void;
   analysisResult: LexicalAnalysisResult | null;
   activeWordContext: WordContext | null;
@@ -45,6 +54,13 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   setIsLeftTopCollapsed,
   isLeftBottomCollapsed,
   setIsLeftBottomCollapsed,
+  isFileExplorerCollapsed: propIsFileExplorerCollapsed,
+  setIsFileExplorerCollapsed: propSetIsFileExplorerCollapsed,
+  onOpenFile,
+  activeFilePath,
+  currentFolder,
+  onOpenFolder,
+  onCloseFolder,
   handleResizeLeft,
   analysisResult,
   activeWordContext,
@@ -54,15 +70,33 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   onInspectWord,
   onReplaceWord,
 }) => {
+  const [internalExplorerCollapsed, setInternalExplorerCollapsed] = useState(false);
+  const isExplorerCollapsed =
+    propIsFileExplorerCollapsed !== undefined
+      ? propIsFileExplorerCollapsed
+      : internalExplorerCollapsed;
+  const toggleExplorerCollapsed = () => {
+    if (propSetIsFileExplorerCollapsed) {
+      propSetIsFileExplorerCollapsed(!isExplorerCollapsed);
+    } else {
+      setInternalExplorerCollapsed(!isExplorerCollapsed);
+    }
+  };
+
   if (isLeftCollapsed) {
     return (
       <CollapsedSidebarStrip
         side="left"
         expandIcon={<LuPanelLeftOpen size={16} />}
-        expandTitle="Expand Left Sidebar (Senses & Morphology)"
+        expandTitle="Expand Left Sidebar (Files, Senses & Morphology)"
         onExpand={onExpandLeft}
-        label="Senses & Relations"
+        label="Files & Senses"
         items={[
+          {
+            icon: <LuFolder size={15} />,
+            title: "File Explorer (.txt & .md)",
+            color: "blue.300",
+          },
           {
             icon: <LuLayers size={15} />,
             title: "Word Senses & Polysemy",
@@ -92,6 +126,17 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         borderRightWidth="1px"
         borderColor="gray.800"
       >
+        {/* Top: File Explorer Panel */}
+        <FileExplorerPanel
+          onOpenFile={onOpenFile}
+          activeFilePath={activeFilePath}
+          currentFolder={currentFolder}
+          onOpenFolder={onOpenFolder}
+          onCloseFolder={onCloseFolder}
+          isCollapsed={isExplorerCollapsed}
+          onToggleCollapse={toggleExplorerCollapsed}
+        />
+
         {/* Left-Top Panel: Word Senses */}
         {isLeftTopCollapsed ? (
           <HStack

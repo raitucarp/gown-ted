@@ -15,6 +15,7 @@ import type { WordContext, EditorWorkspaceProps, SuggestionItem } from "@types";
 
 export const EditorWorkspace: React.FC<EditorWorkspaceProps> = ({
   initialContent = "",
+  isPlainMode = false,
   onActiveWordChange,
   onDocumentChange,
   editorRef,
@@ -237,8 +238,7 @@ export const EditorWorkspace: React.FC<EditorWorkspaceProps> = ({
       Subscript,
       Superscript,
       Placeholder.configure({
-        placeholder:
-          "Type or paste your text here. Click or place cursor on any English word to explore WordNet senses, definitions, synonyms, and relations...",
+        placeholder: "Your writing here...",
       }),
       CharacterCount,
     ],
@@ -331,7 +331,7 @@ export const EditorWorkspace: React.FC<EditorWorkspaceProps> = ({
   return (
     <Box position="relative" height="100%" display="flex" flexDirection="column" bg="gray.950">
       <RichTextEditor.Root editor={editor}>
-        <RichTextEditor.ToolbarControls />
+        <RichTextEditor.ToolbarControls isPlainMode={isPlainMode} />
         <RichTextEditor.Content />
       </RichTextEditor.Root>
 

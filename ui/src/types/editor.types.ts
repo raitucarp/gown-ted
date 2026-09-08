@@ -12,6 +12,7 @@ export interface WordContext {
 
 export interface EditorWorkspaceProps {
   initialContent?: string;
+  isPlainMode?: boolean;
   onActiveWordChange: (ctx: WordContext | null) => void;
   onDocumentChange: (html: string, text: string) => void;
   onEditorReady?: (editor: Editor) => void;
