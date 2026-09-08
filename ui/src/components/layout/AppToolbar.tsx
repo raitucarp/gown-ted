@@ -1,8 +1,34 @@
 import React from "react";
-import { HStack, Text, Button, Badge, IconButton, Box } from "@chakra-ui/react";
+import {
+  HStack,
+  Text,
+  Button,
+  Badge,
+  IconButton,
+  Box,
+  Portal,
+  MenuRoot,
+  MenuTrigger,
+  MenuPositioner,
+  MenuContent,
+  MenuItem,
+  MenuItemText,
+  MenuItemCommand,
+  MenuSeparator,
+  MenuTriggerItem,
+  Image,
+} from "@chakra-ui/react";
 import {
   LuBookMarked,
   LuFileText,
+  LuFolderOpen,
+  LuHistory,
+  LuFolderClock,
+  LuSave,
+  LuLogOut,
+  LuInfo,
+  LuChevronRight,
+  LuTrash2,
   LuMaximize2,
   LuMinimize2,
   LuMinus,
@@ -15,12 +41,11 @@ import {
   LuPanelBottom,
   LuPanelBottomClose,
 } from "react-icons/lu";
-import { Window } from "@wailsio/runtime";
+import { Window, Application } from "@wailsio/runtime";
 
 interface AppToolbarProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
-  onNewDocument: () => void;
   onLoadSample?: (sampleKey: string) => void;
   isBackendReady: boolean;
   isLeftOpen?: boolean;
@@ -29,12 +54,24 @@ interface AppToolbarProps {
   onToggleRight?: () => void;
   isBottomOpen?: boolean;
   onToggleBottom?: () => void;
+  // File menu actions
+  onOpenFile: () => void;
+  onOpenFolder: () => void;
+  recentFiles: string[];
+  recentFolders: string[];
+  onSelectRecentFile: (path: string) => void;
+  onSelectRecentFolder: (path: string) => void;
+  onClearRecentFiles: () => void;
+  onClearRecentFolders: () => void;
+  onSave: () => void;
+  onSaveAs: () => void;
+  // Help menu
+  onOpenAbout: () => void;
 }
 
 export const AppToolbar: React.FC<AppToolbarProps> = ({
   isFocusMode,
   onToggleFocusMode,
-  onNewDocument,
   onLoadSample,
   isBackendReady,
   isLeftOpen = true,
@@ -43,6 +80,17 @@ export const AppToolbar: React.FC<AppToolbarProps> = ({
   onToggleRight,
   isBottomOpen = true,
   onToggleBottom,
+  onOpenFile,
+  onOpenFolder,
+  recentFiles,
+  recentFolders,
+  onSelectRecentFile,
+  onSelectRecentFolder,
+  onClearRecentFiles,
+  onClearRecentFolders,
+  onSave,
+  onSaveAs,
+  onOpenAbout,
 }) => {
   const handleMinimize = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -57,6 +105,14 @@ export const AppToolbar: React.FC<AppToolbarProps> = ({
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
     Window.Close().catch(console.error);
+  };
+
+  const handleExit = () => {
+    try {
+      Application.Quit();
+    } catch {
+      Window.Close().catch(console.error);
+    }
   };
 
   const handleDragMouseDown = (e: React.MouseEvent) => {
@@ -104,35 +160,381 @@ export const AppToolbar: React.FC<AppToolbarProps> = ({
         } as React.CSSProperties}
       >
         <HStack gap="1.5">
-          <LuBookMarked color="#63B3ED" size={17} />
+          <Image src="/app-icon.png" alt="gown-ted icon" boxSize="18px" borderRadius="xs" />
           <Text fontSize="sm" fontWeight="bold" color="blue.200" letterSpacing="-0.01em">
             gown-ted
           </Text>
         </HStack>
-        <Badge size="xs" variant="surface" colorPalette="blue">
+        <Badge size="sm" variant="surface" colorPalette="blue" px="2">
           WordNet Editor
         </Badge>
         {isBackendReady ? (
-          <Badge size="xs" colorPalette="green" variant="subtle">
+          <Badge size="sm" colorPalette="green" variant="subtle" px="2">
             OEWN 3.1
           </Badge>
         ) : (
-          <Badge size="xs" colorPalette="yellow" variant="subtle">
+          <Badge size="sm" colorPalette="yellow" variant="subtle" px="2">
             Initializing...
           </Badge>
         )}
 
-        <Button
-          size="xs"
-          variant="subtle"
-          colorPalette="gray"
-          onClick={onNewDocument}
-          title="Create New Blank Document"
-          ml="1"
-        >
-          <LuFileText size={13} />
-          New
-        </Button>
+        {/* File Menu */}
+        <MenuRoot size="sm" positioning={{ placement: "bottom-start", gutter: 4 }}>
+          <MenuTrigger asChild>
+            <Button
+              size="xs"
+              variant="ghost"
+              color="gray.300"
+              bg="transparent"
+              px="2.5"
+              h="24px"
+              fontSize="xs"
+              fontWeight="medium"
+              borderRadius="sm"
+              cursor="pointer"
+              _hover={{ bg: "whiteAlpha.150", color: "white" }}
+              _active={{ bg: "whiteAlpha.200", color: "white" }}
+              _open={{ bg: "whiteAlpha.200", color: "white" }}
+              _focus={{ outline: "none", boxShadow: "none" }}
+              _focusVisible={{ outline: "none", boxShadow: "none", ring: "1px", ringColor: "blue.400" }}
+            >
+              File
+            </Button>
+          </MenuTrigger>
+          <Portal>
+            <MenuPositioner>
+              <MenuContent
+                bg="gray.900"
+                borderColor="gray.750"
+                borderWidth="1px"
+                color="gray.200"
+                minW="250px"
+                p="1.5"
+                borderRadius="md"
+                boxShadow="0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)"
+                zIndex={200}
+              >
+                <MenuItem
+                  value="open-file"
+                  onClick={onOpenFile}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                  _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                >
+                  <LuFileText size={15} color="#A0AEC0" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    Open File...
+                  </MenuItemText>
+                  <MenuItemCommand fontSize="xs" color="gray.400" pr="1.5">
+                    Ctrl+O
+                  </MenuItemCommand>
+                </MenuItem>
+
+                <MenuItem
+                  value="open-folder"
+                  onClick={onOpenFolder}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                  _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                >
+                  <LuFolderOpen size={15} color="#A0AEC0" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    Open Folder...
+                  </MenuItemText>
+                </MenuItem>
+
+                <MenuSeparator my="1" borderColor="gray.800" />
+
+                {/* Open Recent Files */}
+                <MenuRoot size="sm" positioning={{ placement: "right-start", gutter: 4 }}>
+                  <MenuTriggerItem
+                    cursor="pointer"
+                    px="2.5"
+                    py="1.5"
+                    borderRadius="sm"
+                    gap="2.5"
+                    _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                    _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                  >
+                    <LuHistory size={15} color="#A0AEC0" />
+                    <MenuItemText fontSize="xs" fontWeight="medium">
+                      Open Recent
+                    </MenuItemText>
+                    <LuChevronRight size={13} color="#718096" style={{ marginRight: "2px" }} />
+                  </MenuTriggerItem>
+                  <Portal>
+                    <MenuPositioner>
+                      <MenuContent
+                        bg="gray.900"
+                        borderColor="gray.750"
+                        borderWidth="1px"
+                        color="gray.200"
+                        minW="260px"
+                        p="1.5"
+                        borderRadius="md"
+                        boxShadow="0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)"
+                        zIndex={201}
+                      >
+                        {recentFiles.length === 0 ? (
+                          <MenuItem value="empty-recent-files" disabled px="2.5" py="1.5">
+                            <MenuItemText color="gray.500" fontStyle="italic" fontSize="xs">
+                              No Recent Files
+                            </MenuItemText>
+                          </MenuItem>
+                        ) : (
+                          <>
+                            {recentFiles.map((path) => (
+                              <MenuItem
+                                key={path}
+                                value={path}
+                                onClick={() => onSelectRecentFile(path)}
+                                cursor="pointer"
+                                px="2.5"
+                                py="1.5"
+                                borderRadius="sm"
+                                gap="2.5"
+                                _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                                _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                              >
+                                <LuFileText size={14} color="#718096" />
+                                <MenuItemText truncate title={path} fontSize="xs">
+                                  {path.split(/[/\\]/).pop()}
+                                </MenuItemText>
+                              </MenuItem>
+                            ))}
+                            <MenuSeparator my="1" borderColor="gray.800" />
+                            <MenuItem
+                              value="clear-recent-files"
+                              onClick={onClearRecentFiles}
+                              cursor="pointer"
+                              px="2.5"
+                              py="1.5"
+                              borderRadius="sm"
+                              gap="2.5"
+                              color="red.400"
+                              _hover={{ bg: "red.950/50", color: "red.300" }}
+                              _highlighted={{ bg: "red.950/50", color: "red.300" }}
+                            >
+                              <LuTrash2 size={14} />
+                              <MenuItemText fontSize="xs">Clear Recent Files</MenuItemText>
+                            </MenuItem>
+                          </>
+                        )}
+                      </MenuContent>
+                    </MenuPositioner>
+                  </Portal>
+                </MenuRoot>
+
+                {/* Open Recent Folders */}
+                <MenuRoot size="sm" positioning={{ placement: "right-start", gutter: 4 }}>
+                  <MenuTriggerItem
+                    cursor="pointer"
+                    px="2.5"
+                    py="1.5"
+                    borderRadius="sm"
+                    gap="2.5"
+                    _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                    _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                  >
+                    <LuFolderClock size={15} color="#A0AEC0" />
+                    <MenuItemText fontSize="xs" fontWeight="medium">
+                      Open Recent Folder
+                    </MenuItemText>
+                    <LuChevronRight size={13} color="#718096" style={{ marginRight: "2px" }} />
+                  </MenuTriggerItem>
+                  <Portal>
+                    <MenuPositioner>
+                      <MenuContent
+                        bg="gray.900"
+                        borderColor="gray.750"
+                        borderWidth="1px"
+                        color="gray.200"
+                        minW="260px"
+                        p="1.5"
+                        borderRadius="md"
+                        boxShadow="0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)"
+                        zIndex={201}
+                      >
+                        {recentFolders.length === 0 ? (
+                          <MenuItem value="empty-recent-folders" disabled px="2.5" py="1.5">
+                            <MenuItemText color="gray.500" fontStyle="italic" fontSize="xs">
+                              No Recent Folders
+                            </MenuItemText>
+                          </MenuItem>
+                        ) : (
+                          <>
+                            {recentFolders.map((folder) => (
+                              <MenuItem
+                                key={folder}
+                                value={folder}
+                                onClick={() => onSelectRecentFolder(folder)}
+                                cursor="pointer"
+                                px="2.5"
+                                py="1.5"
+                                borderRadius="sm"
+                                gap="2.5"
+                                _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                                _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                              >
+                                <LuFolderOpen size={14} color="#718096" />
+                                <MenuItemText truncate title={folder} fontSize="xs">
+                                  {folder.split(/[/\\]/).pop() || folder}
+                                </MenuItemText>
+                              </MenuItem>
+                            ))}
+                            <MenuSeparator my="1" borderColor="gray.800" />
+                            <MenuItem
+                              value="clear-recent-folders"
+                              onClick={onClearRecentFolders}
+                              cursor="pointer"
+                              px="2.5"
+                              py="1.5"
+                              borderRadius="sm"
+                              gap="2.5"
+                              color="red.400"
+                              _hover={{ bg: "red.950/50", color: "red.300" }}
+                              _highlighted={{ bg: "red.950/50", color: "red.300" }}
+                            >
+                              <LuTrash2 size={14} />
+                              <MenuItemText fontSize="xs">Clear Recent Folders</MenuItemText>
+                            </MenuItem>
+                          </>
+                        )}
+                      </MenuContent>
+                    </MenuPositioner>
+                  </Portal>
+                </MenuRoot>
+
+                <MenuSeparator my="1" borderColor="gray.800" />
+
+                <MenuItem
+                  value="save"
+                  onClick={onSave}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                  _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                >
+                  <LuSave size={15} color="#A0AEC0" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    Save
+                  </MenuItemText>
+                  <MenuItemCommand fontSize="xs" color="gray.400" pr="1.5">
+                    Ctrl+S
+                  </MenuItemCommand>
+                </MenuItem>
+
+                <MenuItem
+                  value="save-as"
+                  onClick={onSaveAs}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                  _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                >
+                  <LuSave size={15} color="#A0AEC0" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    Save As...
+                  </MenuItemText>
+                  <MenuItemCommand fontSize="xs" color="gray.400" pr="1.5">
+                    Ctrl+Shift+S
+                  </MenuItemCommand>
+                </MenuItem>
+
+                <MenuSeparator my="1" borderColor="gray.800" />
+
+                <MenuItem
+                  value="exit"
+                  onClick={handleExit}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  color="red.400"
+                  _hover={{ bg: "red.950/50", color: "red.300" }}
+                  _highlighted={{ bg: "red.950/50", color: "red.300" }}
+                >
+                  <LuLogOut size={15} color="#F56565" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    Exit
+                  </MenuItemText>
+                </MenuItem>
+              </MenuContent>
+            </MenuPositioner>
+          </Portal>
+        </MenuRoot>
+
+        {/* Help Menu */}
+        <MenuRoot size="sm" positioning={{ placement: "bottom-start", gutter: 4 }}>
+          <MenuTrigger asChild>
+            <Button
+              size="xs"
+              variant="ghost"
+              color="gray.300"
+              bg="transparent"
+              px="2.5"
+              h="24px"
+              fontSize="xs"
+              fontWeight="medium"
+              borderRadius="sm"
+              cursor="pointer"
+              _hover={{ bg: "whiteAlpha.150", color: "white" }}
+              _active={{ bg: "whiteAlpha.200", color: "white" }}
+              _open={{ bg: "whiteAlpha.200", color: "white" }}
+              _focus={{ outline: "none", boxShadow: "none" }}
+              _focusVisible={{ outline: "none", boxShadow: "none", ring: "1px", ringColor: "blue.400" }}
+            >
+              Help
+            </Button>
+          </MenuTrigger>
+          <Portal>
+            <MenuPositioner>
+              <MenuContent
+                bg="gray.900"
+                borderColor="gray.750"
+                borderWidth="1px"
+                color="gray.200"
+                minW="200px"
+                p="1.5"
+                borderRadius="md"
+                boxShadow="0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6)"
+                zIndex={200}
+              >
+                <MenuItem
+                  value="about"
+                  onClick={onOpenAbout}
+                  cursor="pointer"
+                  px="2.5"
+                  py="1.5"
+                  borderRadius="sm"
+                  gap="2.5"
+                  _hover={{ bg: "whiteAlpha.150", color: "white" }}
+                  _highlighted={{ bg: "whiteAlpha.150", color: "white" }}
+                >
+                  <LuInfo size={15} color="#A0AEC0" />
+                  <MenuItemText fontSize="xs" fontWeight="medium">
+                    About gown-ted
+                  </MenuItemText>
+                </MenuItem>
+              </MenuContent>
+            </MenuPositioner>
+          </Portal>
+        </MenuRoot>
       </HStack>
 
       {/* Draggable Center Area with Title */}
