@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" height="100%" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bookGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="nibGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="50%" stop-color="#93C5FD"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <path d="M 64 160 C 120 144 196 156 256 188 C 316 156 392 144 448 160 C 458 163 464 172 464 182 L 464 366 C 464 378 452 388 440 385 C 388 372 316 384 256 416 C 196 384 124 372 72 385 C 60 388 48 378 48 366 L 48 182 C 48 172 54 163 64 160 Z" fill="url(#bookGrad)" />
+  <path d="M 80 180 C 130 168 196 178 246 204 L 246 380 C 196 354 130 344 80 356 Z" fill="url(#pageGrad)" />
+  <rect x="100" y="215" width="110" height="8" rx="4" fill="#E0F2FE" opacity="0.65"/>
+  <rect x="100" y="239" width="110" height="8" rx="4" fill="#E0F2FE" opacity="0.65"/>
+  <rect x="100" y="263" width="95" height="8" rx="4" fill="#E0F2FE" opacity="0.65"/>
+  <rect x="100" y="287" width="105" height="8" rx="4" fill="#E0F2FE" opacity="0.65"/>
+  <rect x="100" y="311" width="80" height="8" rx="4" fill="#E0F2FE" opacity="0.65"/>
+  <g transform="translate(190, 85) rotate(18, 120, 160)">
+    <rect x="85" y="235" width="70" height="24" rx="8" fill="#3B82F6" stroke="#60A5FA" stroke-width="3"/>
+    <path d="M 90 235 L 80 160 C 80 130 100 100 120 40 C 140 100 160 130 160 160 L 150 235 Z" fill="url(#nibGrad)" stroke="#DBEAFE" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="120" cy="135" r="9" fill="#1E293B"/>
+    <line x1="120" y1="40" x2="120" y2="126" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 120 144 L 120 200" stroke="#1E293B" stroke-width="3.5"/>
+  </g>
+</svg>
