@@ -5,11 +5,11 @@
 	"info": {
 		"0000": {
 			"ProductVersion": "0.1.0",
-			"CompanyName": "My Company",
-			"FileDescription": "A gown-ted application",
-			"LegalCopyright": "© 2026, My Company",
-			"ProductName": "My Product",
-			"Comments": "This is a comment"
+			"CompanyName": "Ribhararnus Pracutiar (@raitucarp)",
+			"FileDescription": "gown-ted — The Intelligent Lexical & Poetics Text Editor",
+			"LegalCopyright": "© 2026 Ribhararnus Pracutiar (@raitucarp)",
+			"ProductName": "gown-ted",
+			"Comments": "Built by Ribhararnus Pracutiar (@raitucarp)"
 		}
 	}
 }

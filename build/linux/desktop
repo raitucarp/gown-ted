@@ -1,13 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=My Product
-Comment=A gown-ted application
-# The Exec line includes %u to pass the URL to the application
-Exec=/usr/local/bin/gown-ted.exe %u
+Name=gown-ted
+Comment=The Intelligent Desktop Text Editor Infused with Princeton WordNet & Computational Poetics
+Exec=/usr/local/bin/gown-ted %u
 Terminal=false
 Type=Application
-Icon=gown-ted.exe
-Categories=Utility;
-StartupWMClass=gown-ted.exe
+Icon=gown-ted
+Categories=Utility;TextEditor;Development;
+StartupWMClass=gown-ted
 
  

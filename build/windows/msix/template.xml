@@ -10,24 +10,24 @@
     <Installer
         Path="gown-ted.exe"
         Arguments=""
-        InstallLocation="C:\Program Files\My Company\My Product">
+        InstallLocation="C:\Program Files\gown-ted">
     </Installer>
     <PackageInformation
-        PackageName="My Product"
-        PackageDisplayName="My Product"
-        PublisherName="CN=My Company"
-        PublisherDisplayName="My Company"
+        PackageName="gown-ted"
+        PackageDisplayName="gown-ted"
+        PublisherName="CN=Ribhararnus Pracutiar"
+        PublisherDisplayName="Ribhararnus Pracutiar (@raitucarp)"
         Version="0.1.0.0"
-        PackageDescription="A gown-ted application">
+        PackageDescription="The Intelligent Desktop Text Editor Infused with Princeton WordNet &amp; Computational Poetics">
         <Capabilities>
             <Capability Name="runFullTrust" />
             
         </Capabilities>
         <Applications>
             <Application
-                Id="com.example.gownted"
-                Description="A gown-ted application"
-                DisplayName="My Product"
+                Id="com.raitucarp.gownted"
+                Description="The Intelligent Desktop Text Editor Infused with Princeton WordNet &amp; Computational Poetics"
+                DisplayName="gown-ted"
                 ExecutableName="gown-ted.exe"
                 EntryPoint="Windows.FullTrustApplication">
                 
@@ -41,9 +41,9 @@
         </Dependencies>
         <Properties>
             <Framework>false</Framework>
-            <DisplayName>My Product</DisplayName>
-            <PublisherDisplayName>My Company</PublisherDisplayName>
-            <Description>A gown-ted application</Description>
+            <DisplayName>gown-ted</DisplayName>
+            <PublisherDisplayName>Ribhararnus Pracutiar (@raitucarp)</PublisherDisplayName>
+            <Description>The Intelligent Desktop Text Editor Infused with Princeton WordNet &amp; Computational Poetics</Description>
             <Logo>Assets\AppIcon.png</Logo>
         </Properties>
     </PackageInformation>

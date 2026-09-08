@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap3">
   
   <Identity 
-    Name="com.example.gownted"
-    Publisher="CN=My Company"
+    Name="com.raitucarp.gownted"
+    Publisher="CN=Ribhararnus Pracutiar"
     Version="0.1.0.0" 
     ProcessorArchitecture="x64" />
   
   <Properties>
-    <DisplayName>My Product</DisplayName>
-    <PublisherDisplayName>My Company</PublisherDisplayName>
-    <Description>A gown-ted application</Description>
+    <DisplayName>gown-ted</DisplayName>
+    <PublisherDisplayName>Ribhararnus Pracutiar (@raitucarp)</PublisherDisplayName>
+    <Description>The Intelligent Desktop Text Editor Infused with Princeton WordNet &amp; Computational Poetics</Description>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   
@@ -29,10 +29,10 @@
   </Resources>
   
   <Applications>
-    <Application Id="com.example.gownted" Executable="gown-ted.exe" EntryPoint="Windows.FullTrustApplication">
+    <Application Id="App" Executable="gown-ted.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
-        DisplayName="My Product"
-        Description="A gown-ted application"
+        DisplayName="gown-ted"
+        Description="The Intelligent Desktop Text Editor Infused with Princeton WordNet &amp; Computational Poetics"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

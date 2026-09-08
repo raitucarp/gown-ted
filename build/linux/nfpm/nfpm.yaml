@@ -10,9 +10,9 @@ version: "0.1.0"
 section: "default"
 priority: "extra"
 maintainer: ${GIT_COMMITTER_NAME} <${GIT_COMMITTER_EMAIL}>
-description: "A gown-ted application"
-vendor: "My Company"
-homepage: "https://wails.io"
+description: "The Intelligent Desktop Text Editor Infused with Princeton WordNet & Computational Poetics"
+vendor: "Ribhararnus Pracutiar (@raitucarp)"
+homepage: "https://github.com/raitucarp/gown-ted"
 license: "MIT"
 release: "1"
 
