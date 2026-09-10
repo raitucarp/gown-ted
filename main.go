@@ -34,7 +34,7 @@ func main() {
 	})
 
 	win := app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title:            "gown-ted — Golang WordNet Text Editor",
+		Title:            "Gown Text Editor",
 		Width:            1400,
 		Height:           900,
 		Frameless:        true,

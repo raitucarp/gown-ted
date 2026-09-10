@@ -216,6 +216,8 @@ export function getLexFileVisual(lexfile?: string): LexicalVisual {
       return { icon: <GiSparkles />, label: "Descriptive Qualities", palette: "purple" };
     case "adj.pert":
       return { icon: <GiCompass />, label: "Relational Adjectives", palette: "blue" };
+    case "adj.ppl":
+      return { icon: <GiSparkles />, label: "Participle Adjectives", palette: "purple" };
     case "adv.all":
       return { icon: <GiWindyStripes />, label: "Adverbial Modifiers", palette: "amber" };
 

@@ -36,6 +36,27 @@ export function CalculateSimilarity(word1: string, word2: string): $CancellableP
 }
 
 /**
+ * FindWordLocation locates the primary LexFile and word info for a given word or phrase.
+ */
+export function FindWordLocation(word: string): $CancellablePromise<models$0.LexFileWordItem | null> {
+    return $Call.ByID(371324934, word);
+}
+
+/**
+ * GetDocumentWordGraph constructs an interactive multi-hop semantic relationship network for document words.
+ */
+export function GetDocumentWordGraph(words: string[] | null): $CancellablePromise<models$0.WordGraphResult> {
+    return $Call.ByID(4077261957, words);
+}
+
+/**
+ * GetLexFiles returns the list of all WordNet Lexicographer Files with word counts.
+ */
+export function GetLexFiles(): $CancellablePromise<models$0.LexFileInfo[] | null> {
+    return $Call.ByID(3561151394);
+}
+
+/**
  * GetPoeticSuggestions analyzes rhyming ending, alliterative onset, and Consonant-Vowel (CV) meter.
  */
 export function GetPoeticSuggestions(word: string): $CancellablePromise<models$0.PoeticSuggestionsResult> {
@@ -47,6 +68,13 @@ export function GetPoeticSuggestions(word: string): $CancellablePromise<models$0
  */
 export function GetSuggestions(query: string, limit: number): $CancellablePromise<models$0.SuggestionItem[] | null> {
     return $Call.ByID(3036513803, query, limit);
+}
+
+/**
+ * GetWordsByLexFile returns alphabetically sorted words for a given LexFile, with optional search query.
+ */
+export function GetWordsByLexFile(lexFile: string, query: string, limit: number): $CancellablePromise<models$0.LexFileWordItem[] | null> {
+    return $Call.ByID(38440605, lexFile, query, limit);
 }
 
 /**

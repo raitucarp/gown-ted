@@ -8,6 +8,8 @@ export type {
     FileContentPayload,
     FileItem,
     FunctionalInfo,
+    LexFileInfo,
+    LexFileWordItem,
     LexicalAnalysisResult,
     MorphologyInfo,
     PhonologyInfo,
@@ -18,5 +20,8 @@ export type {
     SimilarityResult,
     SuggestionItem,
     SynonymGroup,
+    WordGraphEdge,
+    WordGraphNode,
+    WordGraphResult,
     WordSenseItem
 } from "./models.js";

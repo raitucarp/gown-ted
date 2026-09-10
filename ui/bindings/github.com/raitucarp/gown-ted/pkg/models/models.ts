@@ -77,6 +77,26 @@ export interface FunctionalInfo {
 }
 
 /**
+ * LexFileInfo describes a WordNet Lexicographer File domain with word count.
+ */
+export interface LexFileInfo {
+    "name": string;
+    "wordCount": number;
+}
+
+/**
+ * LexFileWordItem represents an individual word entry belonging to a LexFile.
+ */
+export interface LexFileWordItem {
+    "word": string;
+    "pos": string;
+    "definition": string;
+    "synsetId": string;
+    "examples"?: string[] | null;
+    "lexfile"?: string;
+}
+
+/**
  * LexicalAnalysisResult bundles all lexical, semantic, and morphological analysis.
  */
 export interface LexicalAnalysisResult {
@@ -197,6 +217,47 @@ export interface SynonymGroup {
     "senseDefinition": string;
     "pos": string;
     "words": string[] | null;
+}
+
+/**
+ * WordGraphEdge represents a semantic relation connecting two nodes.
+ */
+export interface WordGraphEdge {
+    "source": string;
+    "target": string;
+
+    /**
+     * "synonym", "hypernym", "hyponym", "antonym", "meronym", "similar", "same_lexfile"
+     */
+    "label": string;
+    "type": string;
+    "weight"?: number;
+}
+
+/**
+ * WordGraphNode represents a node in the document word network.
+ */
+export interface WordGraphNode {
+    "id": string;
+    "label": string;
+
+    /**
+     * "word", "intermediate", "synset"
+     */
+    "type": string;
+    "pos"?: string;
+    "count"?: number;
+    "is_document_word": boolean;
+    "definition"?: string;
+    "depth"?: number;
+}
+
+/**
+ * WordGraphResult holds nodes and edges for the document word graph.
+ */
+export interface WordGraphResult {
+    "nodes": WordGraphNode[] | null;
+    "edges": WordGraphEdge[] | null;
 }
 
 /**

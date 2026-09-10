@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppLayout } from "@templates/AppLayout";
+import type { ActiveView } from "@components/layout/ActivityBar";
 import {
   useBackendStatus,
   usePanelLayout,
@@ -14,6 +15,8 @@ export default function App() {
   const { isBackendReady } = useBackendStatus();
   const panelLayout = usePanelLayout();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [activeView, setActiveView] = useState<ActiveView>("editor");
+  const [documentPlainText, setDocumentPlainText] = useState<string>("");
 
   const {
     activeWordContext,
@@ -71,6 +74,7 @@ export default function App() {
   });
 
   const handleDocChange = (html: string, plainText: string) => {
+    setDocumentPlainText(plainText);
     handleDocumentChange(html, plainText);
     updateActiveTabContent(html);
   };
@@ -146,6 +150,9 @@ export default function App() {
 
   return (
     <AppLayout
+      activeView={activeView}
+      onChangeView={setActiveView}
+      documentPlainText={documentPlainText}
       isFocusMode={panelLayout.isFocusMode}
       onToggleFocusMode={panelLayout.toggleFocusMode}
       onLoadSample={handleSampleSelect}

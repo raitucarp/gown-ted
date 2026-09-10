@@ -3,11 +3,14 @@ import { Flex, HStack, Box } from "@chakra-ui/react";
 import { AppToolbar } from "@components/layout/AppToolbar";
 import { AppStatusBar } from "@components/layout/AppStatusBar";
 import { EditorTabBar } from "@components/layout/EditorTabBar";
+import { ActivityBar, type ActiveView } from "@components/layout/ActivityBar";
 import { EditorWorkspace } from "@components/editor/EditorWorkspace";
 import { LeftSidebar } from "@organisms/layout/LeftSidebar";
 import { RightSidebar } from "@organisms/layout/RightSidebar";
 import { BottomDrawer } from "@organisms/layout/BottomDrawer";
 import { AboutModal } from "@components/dialogs/AboutModal";
+import { WordNetExplorerView } from "@components/views/WordNetExplorerView";
+import { GraphExplorerView } from "@components/views/GraphExplorerView";
 import type {
   LexicalAnalysisResult,
   WordContext,
@@ -96,10 +99,17 @@ interface AppLayoutProps {
   onCloseAbout: () => void;
   // Status
   stats: DocumentStats;
+  // Activity Bar & Views
+  activeView: ActiveView;
+  onChangeView: (view: ActiveView) => void;
+  documentPlainText: string;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
   isFocusMode,
+  activeView,
+  onChangeView,
+  documentPlainText,
   onToggleFocusMode,
   onLoadSample,
   isBackendReady,
@@ -171,6 +181,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onCloseAbout,
   stats,
 }) => {
+  const activeTab = tabs?.find((t) => t.id === activeTabId) || tabs?.[0];
+
   return (
     <Flex direction="column" h="100vh" w="100vw" overflow="hidden" bg="gray.950" color="gray.100">
       <AppToolbar
@@ -199,89 +211,121 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       <HStack flex="1" gap={0} alignItems="stretch" overflow="hidden">
         {!isFocusMode && (
-          <LeftSidebar
-            leftWidth={leftWidth}
-            isLeftCollapsed={isLeftCollapsed}
-            onExpandLeft={onExpandLeft}
-            onCollapseLeft={onCollapseLeft}
-            leftSplitTopRatio={leftSplitTopRatio}
-            setLeftSplitTopRatio={setLeftSplitTopRatio}
-            isLeftTopCollapsed={isLeftTopCollapsed}
-            setIsLeftTopCollapsed={setIsLeftTopCollapsed}
-            isLeftBottomCollapsed={isLeftBottomCollapsed}
-            setIsLeftBottomCollapsed={setIsLeftBottomCollapsed}
-            onOpenFile={onOpenFileFromExplorer}
-            activeFilePath={activeFilePath}
-            currentFolder={currentFolder}
-            onOpenFolder={onOpenFolder}
-            onCloseFolder={onCloseFolder}
-            handleResizeLeft={handleResizeLeft}
-            analysisResult={analysisResult}
-            activeWordContext={activeWordContext}
-            selectedSenseIdx={selectedSenseIdx}
-            setSelectedSenseIdx={setSelectedSenseIdx}
-            analysisLoading={analysisLoading}
-            onInspectWord={onInspectWord}
-            onReplaceWord={onReplaceWord}
+          <ActivityBar
+            activeView={activeView}
+            onChangeView={onChangeView}
+            onToggleLeft={() => (isLeftCollapsed ? onExpandLeft() : onCollapseLeft())}
+            onOpenAbout={onOpenAbout}
           />
         )}
 
-        <Flex flex="1" direction="column" h="100%" overflow="hidden">
-          <EditorTabBar
-            tabs={tabs}
-            activeTabId={activeTabId}
-            onSelectTab={onSelectTab}
-            onCloseTab={onCloseTab}
-            onNewTab={onNewTab}
-          />
-
-          <Box flex="1" overflow="hidden">
-            <EditorWorkspace
-              initialContent=""
-              isPlainMode={isPlainMode}
-              onActiveWordChange={onActiveWordChange}
-              onDocumentChange={onDocumentChange}
-              editorRef={editorRef}
-            />
-          </Box>
-
+        {/* 1. EDITOR VIEW (Persisted in DOM: hidden via display: none to prevent state loss when switching views) */}
+        <Flex
+          flex="1"
+          direction="row"
+          h="100%"
+          overflow="hidden"
+          alignItems="stretch"
+          display={activeView === "editor" ? "flex" : "none"}
+        >
           {!isFocusMode && (
-            <BottomDrawer
-              bottomHeight={bottomHeight}
-              isBottomCollapsed={isBottomCollapsed}
-              onExpandBottom={onExpandBottom}
-              onCollapseBottom={onCollapseBottom}
-              handleResizeBottom={handleResizeBottom}
+            <LeftSidebar
+              leftWidth={leftWidth}
+              isLeftCollapsed={isLeftCollapsed}
+              onExpandLeft={onExpandLeft}
+              onCollapseLeft={onCollapseLeft}
+              leftSplitTopRatio={leftSplitTopRatio}
+              setLeftSplitTopRatio={setLeftSplitTopRatio}
+              isLeftTopCollapsed={isLeftTopCollapsed}
+              setIsLeftTopCollapsed={setIsLeftTopCollapsed}
+              isLeftBottomCollapsed={isLeftBottomCollapsed}
+              setIsLeftBottomCollapsed={setIsLeftBottomCollapsed}
+              onOpenFile={onOpenFileFromExplorer}
+              activeFilePath={activeFilePath}
+              currentFolder={currentFolder}
+              onOpenFolder={onOpenFolder}
+              onCloseFolder={onCloseFolder}
+              handleResizeLeft={handleResizeLeft}
               analysisResult={analysisResult}
               activeWordContext={activeWordContext}
-              currentSense={currentSense}
+              selectedSenseIdx={selectedSenseIdx}
+              setSelectedSenseIdx={setSelectedSenseIdx}
+              analysisLoading={analysisLoading}
               onInspectWord={onInspectWord}
+              onReplaceWord={onReplaceWord}
+            />
+          )}
+
+          <Flex flex="1" direction="column" h="100%" overflow="hidden">
+            <EditorTabBar
+              tabs={tabs}
+              activeTabId={activeTabId}
+              onSelectTab={onSelectTab}
+              onCloseTab={onCloseTab}
+              onNewTab={onNewTab}
+            />
+
+            <Box flex="1" overflow="hidden">
+              <EditorWorkspace
+                initialContent={activeTab?.content || ""}
+                isPlainMode={isPlainMode}
+                onActiveWordChange={onActiveWordChange}
+                onDocumentChange={onDocumentChange}
+                editorRef={editorRef}
+              />
+            </Box>
+
+            {!isFocusMode && (
+              <BottomDrawer
+                bottomHeight={bottomHeight}
+                isBottomCollapsed={isBottomCollapsed}
+                onExpandBottom={onExpandBottom}
+                onCollapseBottom={onCollapseBottom}
+                handleResizeBottom={handleResizeBottom}
+                analysisResult={analysisResult}
+                activeWordContext={activeWordContext}
+                currentSense={currentSense}
+                onInspectWord={onInspectWord}
+              />
+            )}
+          </Flex>
+
+          {!isFocusMode && (
+            <RightSidebar
+              rightWidth={rightWidth}
+              isRightCollapsed={isRightCollapsed}
+              onExpandRight={onExpandRight}
+              onCollapseRight={onCollapseRight}
+              rightRatioTop={rightRatioTop}
+              setRightRatioTop={setRightRatioTop}
+              rightRatioMiddle={rightRatioMiddle}
+              setRightRatioMiddle={setRightRatioMiddle}
+              isRightTopCollapsed={isRightTopCollapsed}
+              setIsRightTopCollapsed={setIsRightTopCollapsed}
+              isRightMiddleCollapsed={isRightMiddleCollapsed}
+              setIsRightMiddleCollapsed={setIsRightMiddleCollapsed}
+              isRightBottomCollapsed={isRightBottomCollapsed}
+              setIsRightBottomCollapsed={setIsRightBottomCollapsed}
+              handleResizeRight={handleResizeRight}
+              analysisResult={analysisResult}
+              activeWordContext={activeWordContext}
+              onInspectWord={onInspectWord}
+              onReplaceWord={onReplaceWord}
+              onInsertWord={onInsertWord}
             />
           )}
         </Flex>
 
-        {!isFocusMode && (
-          <RightSidebar
-            rightWidth={rightWidth}
-            isRightCollapsed={isRightCollapsed}
-            onExpandRight={onExpandRight}
-            onCollapseRight={onCollapseRight}
-            rightRatioTop={rightRatioTop}
-            setRightRatioTop={setRightRatioTop}
-            rightRatioMiddle={rightRatioMiddle}
-            setRightRatioMiddle={setRightRatioMiddle}
-            isRightTopCollapsed={isRightTopCollapsed}
-            setIsRightTopCollapsed={setIsRightTopCollapsed}
-            isRightMiddleCollapsed={isRightMiddleCollapsed}
-            setIsRightMiddleCollapsed={setIsRightMiddleCollapsed}
-            isRightBottomCollapsed={isRightBottomCollapsed}
-            setIsRightBottomCollapsed={setIsRightBottomCollapsed}
-            handleResizeRight={handleResizeRight}
-            analysisResult={analysisResult}
-            activeWordContext={activeWordContext}
+        {/* 2. WORDNET LEXICAL EXPLORER VIEW */}
+        {activeView === "wordnet" && (
+          <WordNetExplorerView onInsertWord={onInsertWord} />
+        )}
+
+        {/* 3. DOCUMENT WORD GRAPH EXPLORER VIEW */}
+        {activeView === "graph" && (
+          <GraphExplorerView
+            documentText={documentPlainText}
             onInspectWord={onInspectWord}
-            onReplaceWord={onReplaceWord}
-            onInsertWord={onInsertWord}
           />
         )}
       </HStack>
