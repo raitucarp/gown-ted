@@ -139,4 +139,63 @@ func TestLexicalService(t *testing.T) {
 	if len(moneyRes.Senses) == 0 {
 		t.Errorf("expected senses for 'money', got none")
 	}
+
+	// Test GetLexFiles
+	lexFiles := service.GetLexFiles()
+	t.Logf("Total LexFiles indexed: %d", len(lexFiles))
+	if len(lexFiles) == 0 {
+		t.Errorf("expected LexFiles to be indexed, got 0")
+	}
+
+	// Test GetWordsByLexFile
+	animals := service.GetWordsByLexFile("noun.animal", "", 20)
+	t.Logf("Found %d words in noun.animal", len(animals))
+	if len(animals) == 0 {
+		t.Errorf("expected words in noun.animal, got none")
+	} else {
+		t.Logf("  First animal: %s (%s) - %s", animals[0].Word, animals[0].POS, animals[0].Definition)
+	}
+
+	filteredAnimals := service.GetWordsByLexFile("noun.animal", "cat", 10)
+	t.Logf("Filtered 'cat' in noun.animal: %d matches", len(filteredAnimals))
+	if len(filteredAnimals) == 0 {
+		t.Errorf("expected matches for 'cat' in noun.animal")
+	}
+
+	// Test GetDocumentWordGraph
+	docWords := []string{"cat", "dog", "animal", "wolf", "pet", "hound", "puppy", "bark"}
+	graph := service.GetDocumentWordGraph(docWords)
+	t.Logf("Graph nodes: %d, edges: %d", len(graph.Nodes), len(graph.Edges))
+	if len(graph.Nodes) == 0 {
+		t.Errorf("expected graph nodes for docWords")
+	}
+	if len(graph.Edges) == 0 {
+		t.Errorf("expected graph edges connecting docWords")
+	}
+	for i, e := range graph.Edges {
+		if i < 5 {
+			t.Logf("  Edge %s -[%s]-> %s", e.Source, e.Label, e.Target)
+		}
+	}
+
+	// Test FindWordLocation
+	loc := service.FindWordLocation("punish")
+	if loc == nil {
+		t.Errorf("expected to find word location for 'punish'")
+	} else {
+		t.Logf("Found 'punish' in LexFile: %s, POS: %s, SynsetID: %s", loc.LexFile, loc.POS, loc.SynsetID)
+		if loc.LexFile == "" {
+			t.Errorf("expected non-empty LexFile for 'punish'")
+		}
+	}
+
+	loc2 := service.FindWordLocation("avenged")
+	if loc2 == nil {
+		t.Errorf("expected to find word location for 'avenged'")
+	} else {
+		t.Logf("Found 'avenged' in LexFile: %s, POS: %s", loc2.LexFile, loc2.POS)
+		if loc2.LexFile != "adj.ppl" && loc2.LexFile != "verb.social" {
+			t.Logf("Note: 'avenged' is in LexFile %s", loc2.LexFile)
+		}
+	}
 }

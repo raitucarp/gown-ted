@@ -10,11 +10,14 @@ import (
 
 // LexicalService provides WordNet lexical lookups, autocomplete suggestions, and semantic calculations.
 type LexicalService struct {
-	resource  *gown.LexicalResource
-	trie      *trie.PrefixTrie
-	allLemmas []models.SuggestionItem
-	mu        sync.RWMutex
-	ready     bool
+	resource     *gown.LexicalResource
+	trie         *trie.PrefixTrie
+	allLemmas    []models.SuggestionItem
+	lexFiles     []models.LexFileInfo
+	lexFileWords map[string][]models.LexFileWordItem
+	wordLexIndex map[string]models.LexFileWordItem
+	mu           sync.RWMutex
+	ready        bool
 }
 
 // NewLexicalService constructs a new LexicalService and initializes WordNet in the background.
