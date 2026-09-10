@@ -1,55 +1,60 @@
-# The Genesis of gown-ted: Where Language Meets Craft ✨
+# gown-ted v0.2.0: The Lexical Constellation & Multi-Hop WordNet Explorer 🌌✨
 
-Every writer knows the silent struggle of staring at a blank canvas, searching not just for *any* word, but for the *exact* word—the one with the right weight, the precise shade of meaning, and the subtle cadence that makes a sentence breathe.
+Welcome to **gown-ted v0.2.0**—a monumental leap forward in transforming your writing environment into an intelligent semantic observatory. 
 
-Most modern text editors treat words merely as pixels and strings of UTF-8 characters. They don't understand the melody of a line of verse, the depth of an ancient synonym, or the rhythm of syllables dancing across a stanza. 
-
-**gown-ted** was born from a desire to change that. 
-
-We envisioned a sanctuary for wordsmiths: a native desktop environment that harmonizes pure, distraction-free writing with the profound depth of linguistic science and poetics. Today, we are thrilled to introduce the very first public release: **gown-ted v0.1.0**.
+In this major release, we bridge the intimate act of writing with the vast, interconnected universe of the English lexicon. Whether you are crafting verse, essays, or fiction, **gown-ted** now allows you to navigate the entire 45-domain taxonomy of Princeton WordNet, visualize the hidden semantic threads connecting words in your draft through interactive multi-hop graphs, and enjoy a polished, distraction-free desktop interface built for creators.
 
 ---
 
-## What’s Inside This First Edition? 🖋️
+## 🌟 What's New in v0.2.0
 
-### 🧠 Deep Lexical Intelligence (Offline & Instant)
-Powered by the Princeton WordNet lexical database embedded directly into the Go backend, **gown-ted** offers instant semantic depth without ever sending your precious prose to the cloud:
-* **Nuanced Word Senses & Definitions**: Uncover exact semantic nuances, usage examples, and parts of speech in real time as you write.
-* **Synsets & Hypernym Trees**: Explore conceptual hierarchies—from broad umbrella terms down to ultra-specific expressions.
-* **Semantic Pragmatics**: Discern tone, register, and pragmatic connotations to strike the exact chord in your reader's mind.
+### 🚀 1. The Activity Bar (Visual Studio Code-Style Navigation)
+* **Dedicated Left Dock**: A sleek 48px vertical dock on the left side of the workspace providing one-click switching between distinct creative contexts.
+* **Three Core Workspaces**:
+  * 📝 **Editor & Files**: Pure, focused writing canvas with document tabs, file browser, and poetics sidebars.
+  * 📚 **WordNet Lexical Explorer**: Comprehensive lexicographical dictionary and ontology browser across all WordNet domains.
+  * 🕸️ **Document Word Graph**: Interactive semantic graph visualizing words from your current document.
+* **Streamlined Sidebar Control**: Toggle sidebars with clean collapse to 0px, maximizing screen real estate for your writing.
 
-### 🎭 The Poetics Suite & Meter Studio
-Poetry and lyrical prose require ear, cadence, and rhythm. **gown-ted** is equipped with a dedicated acoustic analysis engine:
-* **Syllable Counting & Phonetic Breakdown**: Real-time syllable detection and phonetic transcription.
-* **Rhyme Discovery Engine**: Find perfect rhymes, slant rhymes, and eye rhymes on the fly.
-* **Assonance & Alliteration Heatmaps**: Visualize vowel and consonant harmonies across lines to fine-tune phonetic flow.
-* **Interactive Cadence Radar**: Visual radar and bar diagrams illustrating the structural rhythm of your verses.
+### 📚 2. WordNet Lexical Explorer & 45 Lexicographer Files
+* **Full Lexicographer File Indexing**: Explore all 45 Princeton WordNet domain files (`noun.act`, `noun.animal`, `verb.motion`, `verb.cognition`, `adj.pert`, etc.) indexed in-memory with real-time word statistics.
+* **Dynamic Vocabulary Counts**: Live badge counts reflect exact vocabulary counts in each lexical domain as you filter and search.
+* **Interactive Autonavigation**: Clicking any taxonomic relation (`hypernym`, `hyponym`, `meronym`, `holonym`) or sense synonym instantly navigates to that word's exact lexicographer domain and entry.
+* **Revamped Card Layouts**:
+  * **Absolute Badges**: Sense numbers (`#1`, `#2`) are pinned at the top-right corner; LexFile domain categories sit pinned at the top-left corner.
+  * **Vertical POS Ribbons with Icons**: Clean vertical tags indicate Part of Speech (`noun`, `verb`, `adj`, `adv`) alongside dedicated lexical icons.
+  * **Protected Text Layout**: Safe padding ensures long definitions and usage examples never collide with badges or ribbons.
 
-### ⚡ Built for Pure Focus & Speed
-* **Native Desktop Engineering**: Crafted with **Go 1.24** and **Wails v3** for minimal memory footprint and lightning-quick startup.
-* **Zero CSS Bloat**: Engineered exclusively with a centralized **Chakra UI v3** design system, sporting a distraction-free dark canvas.
-* **Offline-First Privacy**: Your writings and drafts remain 100% local on your computer.
+### 🕸️ 3. Document Word Graph (Points, Multi-Hop Paths & Edge Relations)
+* **Constellation Dot Visualization**: Nodes are now rendered as crisp, delicate points/dots (radius ~2–3px) that stay sharp at any zoom level, paired with prominent, highly legible word labels.
+* **Multi-Hop Semantic Traversal**: Deep pathfinding algorithm traces associative semantic chains connecting seemingly distant words across intermediate synsets and definitions (e.g. connecting *"he"* and *"home"* through conceptual lineages like *person*, *dwelling*, and *structure*).
+* **Relationship Badges on Edges**: Every connection line displays an interactive badge identifying the semantic bond (`hypernym`, `hyponym`, `synonym`, `definition`, `antonym`, `path`), color-coded according to the visual legend.
+* **Focused Inspection**: Selecting any node highlights all its immediate relations while gently dimming unrelated clusters for effortless comprehension.
+
+### 💾 4. Persistent Editor State & Seamless Tab Switching
+* **Zero Text Loss**: Switching between the Editor, Lexical Explorer, and Word Graph preserves your active document, cursor position, selection range, and full `Ctrl+Z` / `Ctrl+Y` undo history.
+* **Instant Insert**: Insert synonyms or explored words directly into your text with a single click.
 
 ---
 
-## Quick Installation & Downloads 📦
+## 📦 Native Installers & Downloads
 
-Pre-compiled, standalone binaries are ready for your platform below:
+With **v0.2.0**, we now provide official native **installers** for all major desktop platforms alongside standalone portable archives:
 
-* **🪟 Windows (`amd64`)**: Download `gown-ted-windows-amd64.zip`, extract it, and launch `gown-ted.exe`.
-* **🍏 macOS (`Apple Silicon / Universal`)**: Download `gown-ted-macos-arm64.tar.gz`, extract the `.app` bundle, and move it to your `/Applications` folder.
-* **🐧 Linux (`x86_64`)**: Download `gown-ted-linux-amd64.tar.gz`, extract the binary, and run `./bin/gown-ted` (requires GTK4 & WebKitGTK-6.0).
+| Platform | Installer Package | Portable Archive | Notes |
+| :--- | :--- | :--- | :--- |
+| **🪟 Windows (x64)** | **`gown-ted-amd64-installer.exe`** (NSIS Setup) | `gown-ted-windows-amd64.zip` | Full Start Menu & Desktop shortcuts, automatic WebView2 setup |
+| **🍏 macOS (Apple Silicon / ARM64)** | **`gown-ted-macos-arm64.dmg`** (Disk Image) | `gown-ted-macos-arm64.tar.gz` | Drag-and-drop installer into `/Applications` |
+| **🐧 Linux (x86_64)** | **`gown-ted-linux-amd64.deb`** / **`gown-ted-linux-amd64.rpm`** | `gown-ted-linux-amd64.tar.gz` | Desktop entry & icon integration (requires GTK4 & WebKitGTK 6.0) |
 
 ---
 
-## A Note from the Creator & Support the Journey ☕
+## ☕ Support the Journey
 
-Creating **gown-ted** is an independent labor of love—an endeavor dedicated to giving poets, lyricists, essayists, and lovers of language a tool that honors the sacred art of writing.
+**gown-ted** is an independent, open-source endeavor built out of love for linguistics, literature, and software craft. 
 
-If **gown-ted** inspires your work, unlocks a forgotten word, or helps bring a stanza to life, please consider supporting its continued development:
+If gown-ted inspires your writing, enriches your vocabulary, or enhances your creative workflow, please consider supporting its continued evolution:
 
 👉 **[Support raitucarp on Ko-fi (Buy Me a Coffee)](https://ko-fi.com/raitucarp)**
 
-Your support directly funds future lexical modules, dictionary expansions, and continuous improvements to the editor. 
-
-*Thank you for being part of this journey. May your words flow effortlessly.* 📜✨
+*Thank you for writing with gown-ted!* 🖋️✨

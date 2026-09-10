@@ -64,11 +64,21 @@ jobs:
         run: |
           Compress-Archive -Path bin/gown-ted.exe -DestinationPath bin/gown-ted-windows-amd64.zip -Force
 
+      - name: Build Windows NSIS Installer
+        shell: pwsh
+        run: |
+          wails3 generate webview2bootstrapper -dir "build/windows/nsis"
+          cd build/windows/nsis
+          makensis -DARG_WAILS_AMD64_BINARY="..\..\..\bin\gown-ted.exe" project.nsi
+          cd ../../..
+
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
           name: gown-ted-windows-amd64
-          path: bin/gown-ted-windows-amd64.zip
+          path: |
+            bin/gown-ted-windows-amd64.zip
+            bin/*installer.exe
           retention-days: 7
 
   build-macos:
@@ -109,11 +119,21 @@ jobs:
           tar -czvf gown-ted-macos-arm64.tar.gz gown-ted.app
           cd ..
 
+      - name: Build macOS DMG Installer
+        run: |
+          mkdir -p bin/dmg
+          cp -R bin/gown-ted.app bin/dmg/
+          ln -s /Applications bin/dmg/Applications
+          hdiutil create -volname "gown-ted" -srcfolder bin/dmg -ov -format UDZO bin/gown-ted-macos-arm64.dmg
+          rm -rf bin/dmg
+
       - name: Upload macOS Artifact
         uses: actions/upload-artifact@v4
         with:
           name: gown-ted-macos-arm64
-          path: bin/gown-ted-macos-arm64.tar.gz
+          path: |
+            bin/gown-ted-macos-arm64.tar.gz
+            bin/gown-ted-macos-arm64.dmg
           retention-days: 7
 
   build-linux:
@@ -159,11 +179,23 @@ jobs:
           tar -czvf gown-ted-linux-amd64.tar.gz gown-ted
           cd ..
 
+      - name: Install NFPM Packager
+        run: |
+          go install github.com/goreleaser/nfpm/v2/cmd/nfpm@latest
+
+      - name: Build Linux .deb and .rpm Installers
+        run: |
+          nfpm pkg --config build/linux/nfpm/nfpm.yaml --packager deb --target bin/gown-ted-linux-amd64.deb
+          nfpm pkg --config build/linux/nfpm/nfpm.yaml --packager rpm --target bin/gown-ted-linux-amd64.rpm
+
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
         with:
           name: gown-ted-linux-amd64
-          path: bin/gown-ted-linux-amd64.tar.gz
+          path: |
+            bin/gown-ted-linux-amd64.tar.gz
+            bin/gown-ted-linux-amd64.deb
+            bin/gown-ted-linux-amd64.rpm
           retention-days: 7
 
   release:
