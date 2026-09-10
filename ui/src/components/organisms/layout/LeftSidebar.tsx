@@ -84,32 +84,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
   };
 
   if (isLeftCollapsed) {
-    return (
-      <CollapsedSidebarStrip
-        side="left"
-        expandIcon={<LuPanelLeftOpen size={16} />}
-        expandTitle="Expand Left Sidebar (Files, Senses & Morphology)"
-        onExpand={onExpandLeft}
-        label="Files & Senses"
-        items={[
-          {
-            icon: <LuFolder size={15} />,
-            title: "File Explorer (.txt & .md)",
-            color: "blue.300",
-          },
-          {
-            icon: <LuLayers size={15} />,
-            title: "Word Senses & Polysemy",
-            color: "blue.400",
-          },
-          {
-            icon: <LuGitBranch size={15} />,
-            title: "Morphology & Relations",
-            color: "teal.400",
-          },
-        ]}
-      />
-    );
+    return null;
   }
 
   return (
@@ -193,7 +168,6 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
               totalSenses={analysisResult?.polysemy?.totalSenses || 0}
               onSelectSense={(idx) => setSelectedSenseIdx(idx)}
               loading={analysisLoading}
-              onToggleCollapse={onCollapseLeft}
               onToggleSubpanel={() => setIsLeftTopCollapsed(true)}
             />
           </Box>

@@ -21,14 +21,22 @@ export function useEditorActions(
   };
 
   const handleInsertWord = (insertion: string) => {
-    if (!editorRef.current || !activeWordContext) return;
-    const { to } = activeWordContext;
-    editorRef.current
-      .chain()
-      .focus()
-      .setTextSelection(to)
-      .insertContent(" " + insertion)
-      .run();
+    if (!editorRef.current) return;
+    if (activeWordContext) {
+      const { to } = activeWordContext;
+      editorRef.current
+        .chain()
+        .focus()
+        .setTextSelection(to)
+        .insertContent(" " + insertion)
+        .run();
+    } else {
+      editorRef.current
+        .chain()
+        .focus()
+        .insertContent(" " + insertion)
+        .run();
+    }
   };
 
   const handleLoadSample = (sampleKey: string) => {

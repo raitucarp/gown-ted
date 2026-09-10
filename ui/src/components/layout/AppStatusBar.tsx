@@ -49,7 +49,7 @@ export const AppStatusBar: React.FC<AppStatusBarProps> = ({
 
         <Text>
           Chars: <strong style={{ color: "#E2E8F0" }}>{stats.characters}</strong>
-          <span style={{ opacity: 0.6, fontSize: "0.85em" }}> ({stats.charactersNoSpaces} no spaces)</span>
+          <span style={{ opacity: 0.7 }}> ({stats.charactersNoSpaces} no spaces)</span>
         </Text>
 
         <Text>

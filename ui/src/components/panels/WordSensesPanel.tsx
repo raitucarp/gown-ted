@@ -13,7 +13,6 @@ import {
   LuCompass,
   LuSparkles,
   LuLayers,
-  LuPanelLeftClose,
   LuChevronUp,
   LuChevronDown,
   LuTag,
@@ -39,7 +38,6 @@ interface WordSensesPanelProps {
   totalSenses: number;
   onSelectSense: (index: number) => void;
   loading: boolean;
-  onToggleCollapse?: () => void;
   onToggleSubpanel?: () => void;
 }
 
@@ -97,7 +95,6 @@ export const WordSensesPanel: React.FC<WordSensesPanelProps> = ({
   totalSenses,
   onSelectSense,
   loading,
-  onToggleCollapse,
   onToggleSubpanel,
 }) => {
   const [activePos, setActivePos] = useState<string>("");
@@ -252,20 +249,6 @@ export const WordSensesPanel: React.FC<WordSensesPanelProps> = ({
                 flexShrink={0}
               >
                 <LuChevronUp size={14} />
-              </IconButton>
-            )}
-            {onToggleCollapse && (
-              <IconButton
-                size="xs"
-                variant="ghost"
-                color="gray.400"
-                _hover={{ bg: "gray.800", color: "white" }}
-                onClick={onToggleCollapse}
-                title="Collapse Left Panel"
-                aria-label="Collapse Left Panel"
-                flexShrink={0}
-              >
-                <LuPanelLeftClose size={14} />
               </IconButton>
             )}
           </HStack>

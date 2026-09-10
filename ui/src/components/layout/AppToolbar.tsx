@@ -553,7 +553,7 @@ export const AppToolbar: React.FC<AppToolbarProps> = ({
         } as React.CSSProperties}
       >
         <Text fontSize="xs" color="gray.400" fontWeight="medium">
-          gown-ted — Golang WordNet Text Editor
+          Gown Text Editor
         </Text>
       </HStack>
 
@@ -576,7 +576,7 @@ export const AppToolbar: React.FC<AppToolbarProps> = ({
             colorPalette={isLeftOpen ? "blue" : "gray"}
             color={isLeftOpen ? "blue.200" : "gray.400"}
             onClick={onToggleLeft}
-            title={isLeftOpen ? "Hide Left Sidebar (Senses & Morphology)" : "Show Left Sidebar"}
+            title={isLeftOpen ? "Collapse Left Sidebar (Files, Senses & Morphology)" : "Expand Left Sidebar"}
             aria-label="Toggle Left Sidebar"
           >
             {isLeftOpen ? <LuPanelLeftClose size={14} /> : <LuPanelLeft size={14} />}
