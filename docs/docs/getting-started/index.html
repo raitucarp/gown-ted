@@ -383,31 +383,40 @@
 <h2 id="system-requirements">System Requirements</h2>
 <ul>
 <li><strong>Windows:</strong> Windows 10/11 64-bit (WebView2 Runtime preinstalled on modern Windows)</li>
-<li><strong>macOS:</strong> macOS 12+ (Apple Silicon or Intel)</li>
-<li><strong>Linux:</strong> Ubuntu 22.04+, Fedora 38+, Arch Linux (WebKit2GTK 4.1)</li>
+<li><strong>macOS:</strong> macOS 12+ (Apple Silicon or Intel 64-bit)</li>
+<li><strong>Linux:</strong> Ubuntu 22.04+, Debian 12+, Fedora 38+, Arch Linux (GTK4 &amp; WebKitGTK 6.0)</li>
 </ul>
 <hr>
 <h2 id="installation">Installation</h2>
-<h3 id="windows-exe--portable-zip">Windows (.exe / Portable Zip)</h3>
+<h3 id="-windows-exe-installer-or-portable-zip">🪟 Windows (.exe Installer or Portable Zip)</h3>
+<ul>
+<li><strong>Installer (Recommended):</strong> Download <code>gown-ted-amd64-installer.exe</code> from <a href="https://github.com/raitucarp/gown-ted/releases/latest">GitHub Releases</a>. Run the setup wizard to install with Start Menu and Desktop shortcuts.</li>
+<li><strong>Portable Zip:</strong> Download <code>gown-ted-windows-amd64.zip</code>, extract to any folder, and double-click <code>gown-ted.exe</code>.</li>
+</ul>
+<h3 id="-macos-apple-silicon--arm64-dmg">🍏 macOS (Apple Silicon / ARM64 DMG)</h3>
+<ul>
+<li><strong>DMG Installer:</strong> Download <code>gown-ted-macos-arm64.dmg</code> from <a href="https://github.com/raitucarp/gown-ted/releases/latest">GitHub Releases</a>. Double-click the DMG to open it, then drag <code>gown-ted.app</code> into your <code>/Applications</code> folder.</li>
+<li><strong>Portable Archive:</strong> Download <code>gown-ted-macos-arm64.tar.gz</code> and extract the <code>.app</code> bundle.</li>
+</ul>
+<h3 id="-linux-deb--rpm--tarball">🐧 Linux (.deb / .rpm / Tarball)</h3>
+<ul>
+<li><strong>Ubuntu / Debian / Mint:</strong> Download <code>gown-ted-linux-amd64.deb</code> and install using:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dpkg -i gown-ted-linux-amd64.deb
+</span></span></code></pre></div></li>
+<li><strong>Fedora / RHEL / AlmaLinux:</strong> Download <code>gown-ted-linux-amd64.rpm</code> and install using:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo rpm -i gown-ted-linux-amd64.rpm
+</span></span></code></pre></div></li>
+<li><strong>Standalone Archive:</strong> Download <code>gown-ted-linux-amd64.tar.gz</code>, extract the archive, and run <code>./bin/gown-ted</code>.</li>
+</ul>
+<hr>
+<h2 id="navigating-workspaces-the-activity-bar">Navigating Workspaces (The Activity Bar)</h2>
+<p>gown-ted features a modern 48px Activity Bar on the far-left border, allowing you to seamlessly switch creative contexts without losing any text or cursor positions:</p>
 <ol>
-<li>Download the latest <code>gown-ted-windows-amd64.zip</code> from <a href="https://github.com/raitucarp/gown-ted/releases/latest">GitHub Releases</a>.</li>
-<li>Extract the archive to any folder (e.g. <code>C:\Program Files\gown-ted</code> or your portable apps folder).</li>
-<li>Double-click <code>gown-ted.exe</code> to run. No external internet connection or configuration required!</li>
+<li>📝 <strong>Editor &amp; Files:</strong> The core writing studio. Use <code>Ctrl + N</code> (<code>Cmd + N</code> on macOS) to open new tabs, manage files, and inspect contextual word senses and poetics metrics.</li>
+<li>📚 <strong>WordNet Lexical Explorer:</strong> Full dictionary and taxonomy browser spanning all 45 WordNet domain categories. Click any taxonomic tag or synonym to jump directly to its entry.</li>
+<li>🕸️ <strong>Document Word Graph:</strong> An interactive semantic network that graphs every word in your active draft as a constellation of points, with clickable multi-hop pathways and edge relationship labels.</li>
 </ol>
-<h3 id="macos--linux-building-from-source">macOS &amp; Linux (Building from Source)</h3>
-<p>If you are developing or running on macOS/Linux:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#6272a4"># Clone the repository</span>
-</span></span><span style="display:flex;"><span>git clone https://github.com/raitucarp/gown-ted.git
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> gown-ted
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Install frontend dependencies</span>
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">cd</span> ui <span style="color:#ff79c6">&amp;&amp;</span> npm install <span style="color:#ff79c6">&amp;&amp;</span> npm run build <span style="color:#ff79c6">&amp;&amp;</span> <span style="color:#8be9fd;font-style:italic">cd</span> ..
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Run with Wails v3</span>
-</span></span><span style="display:flex;"><span>wails3 dev
-</span></span><span style="display:flex;"><span><span style="color:#6272a4"># Or build a standalone binary</span>
-</span></span><span style="display:flex;"><span>wails3 build
-</span></span></code></pre></div><hr>
+<hr>
 <h2 id="first-steps-in-the-editor">First Steps in the Editor</h2>
 <ol>
 <li><strong>Create or Open a File:</strong> Use <code>Ctrl + N</code> (<code>Cmd + N</code> on macOS) to open a new document tab, or <code>Ctrl + O</code> to open existing <code>.md</code> or <code>.txt</code> files.</li>

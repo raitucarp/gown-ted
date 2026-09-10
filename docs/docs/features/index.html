@@ -380,7 +380,32 @@
 
     <p>gown-ted transforms text editing from passive typing into active linguistic exploration. Here is an overview of its core features:</p>
 <p><img src="/gown-ted/images/linguistic-analysis.png" alt="gown-ted Features Overview"></p>
-<h2 id="1-wordnet-lexical-intelligence">1. WordNet Lexical Intelligence</h2>
+<h2 id="1-modern-activity-bar--multi-workspace-architecture">1. Modern Activity Bar &amp; Multi-Workspace Architecture</h2>
+<p>gown-ted introduces a flexible workspace model powered by a 48px vertical dock on the far left:</p>
+<ul>
+<li>📝 <strong>Editor &amp; Files:</strong> Write with live syntax, auto-saving, tabs, and real-time contextual poetics sidebars.</li>
+<li>📚 <strong>WordNet Lexical Explorer:</strong> Full dictionary and taxonomy browser spanning all 45 WordNet domain categories.</li>
+<li>🕸️ <strong>Document Word Graph:</strong> Interactive constellation graph visualizing semantic relationships across your draft.</li>
+<li><strong>Zero State Loss:</strong> Switching between workspaces preserves your active document, cursor location, text selections, and undo/redo stacks (<code>Ctrl + Z</code> / <code>Ctrl + Y</code>).</li>
+</ul>
+<hr>
+<h2 id="2-wordnet-lexical-explorer-45-lexicographer-domains">2. WordNet Lexical Explorer (45 Lexicographer Domains)</h2>
+<ul>
+<li><strong>Complete Lexicographer Indexing:</strong> Browse all 45 Princeton WordNet domain files (<code>noun.act</code>, <code>noun.animal</code>, <code>verb.motion</code>, <code>verb.cognition</code>, <code>adj.pert</code>, etc.) indexed in-memory.</li>
+<li><strong>Dynamic Vocabulary Counts:</strong> Live badge statistics reflect the exact number of words matching your search filters in real time.</li>
+<li><strong>Interactive Autonavigation:</strong> Clicking any taxonomic relation (<code>hypernym</code>, <code>hyponym</code>, <code>meronym</code>, <code>holonym</code>) or sense synonym instantly navigates to that word&rsquo;s exact lexicographer domain and entry.</li>
+<li><strong>Redesigned Sense Cards:</strong> Sense numbers (<code>#1</code>, <code>#2</code>) are pinned to the top-right corner, domain categories are pinned to the top-left, and vertical POS ribbons feature dedicated lexical icons with clean typography spacing.</li>
+</ul>
+<hr>
+<h2 id="3-interactive-document-word-graph">3. Interactive Document Word Graph</h2>
+<ul>
+<li><strong>Constellation Point Visualization:</strong> Words are rendered as crisp, delicate points/dots (radius ~2–3px) that maintain ideal proportions across all zoom levels, paired with prominent, readable labels.</li>
+<li><strong>Multi-Hop Semantic Traversal:</strong> Deep pathfinding traces associative semantic chains connecting seemingly distant words across intermediate synsets and definitions (e.g. connecting <em>&ldquo;he&rdquo;</em> and <em>&ldquo;home&rdquo;</em> through conceptual lineages like <em>person</em>, <em>dwelling</em>, and <em>structure</em>).</li>
+<li><strong>Relationship Badges on Edges:</strong> Every connection line displays an interactive badge identifying the semantic bond (<code>hypernym</code>, <code>hyponym</code>, <code>synonym</code>, <code>definition</code>, <code>antonym</code>, <code>path</code>), color-coded according to the visual legend.</li>
+<li><strong>Focused Inspection:</strong> Selecting any node highlights all its immediate relations while gently dimming unrelated clusters for effortless comprehension.</li>
+</ul>
+<hr>
+<h2 id="4-wordnet-lexical-intelligence--disambiguation">4. WordNet Lexical Intelligence &amp; Disambiguation</h2>
 <ul>
 <li><strong>Princeton WordNet 3.1 &amp; OEWN Integration:</strong> Built-in offline dictionary of over 117,000 synsets and semantic relations.</li>
 <li><strong>Contextual Sense Disambiguation (Lesk Algorithm):</strong> gown-ted analyzes the surrounding sentence context to automatically rank and recommend the intended word sense with a percentage confidence metric.</li>
@@ -388,7 +413,7 @@
 <li><strong>Morphological Normalization:</strong> Inflected verbs and plural nouns are resolved to their root lemmas.</li>
 </ul>
 <hr>
-<h2 id="2-semantic-relations--ontology-navigator">2. Semantic Relations &amp; Ontology Navigator</h2>
+<h2 id="5-semantic-relations--ontology-navigator">5. Semantic Relations &amp; Ontology Navigator</h2>
 <ul>
 <li><strong>Synonyms by Sense:</strong> Explore synonyms organized by exact meaning rather than a flat, confusing list.</li>
 <li><strong>Antonyms &amp; Opposites:</strong> Quickly find contrasting vocabulary.</li>
@@ -396,7 +421,7 @@
 <li><strong>Wu-Palmer Semantic Similarity:</strong> Compute conceptual distance and find the lowest common ancestor between any two concepts.</li>
 </ul>
 <hr>
-<h2 id="3-real-time-document-statistics">3. Real-Time Document Statistics</h2>
+<h2 id="6-real-time-document-statistics">6. Real-Time Document Statistics</h2>
 <p>The status bar at the bottom provides essential metrics for writers and public speakers:</p>
 <ul>
 <li><strong>Live Counts:</strong> Words, characters (with and without spaces), sentences, and paragraphs.</li>
@@ -404,7 +429,7 @@
 <li><strong>Vocabulary Richness:</strong> Type-Token Ratio (TTR) measuring lexical diversity and repetition.</li>
 </ul>
 <hr>
-<h2 id="4-distraction-free-focus-mode">4. Distraction-Free Focus Mode</h2>
+<h2 id="7-distraction-free-focus-mode">7. Distraction-Free Focus Mode</h2>
 <p>Press <code>Ctrl + Shift + F</code> to collapse all sidebars and toolbars, leaving only your text and your thoughts. Toggle it anytime to bring back the linguistic analysis suite.</p>
 
   </article>

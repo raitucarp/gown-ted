@@ -40,6 +40,24 @@ Word choice is the soul of writing. Yet typical thesauruses dump flat, context-f
 
 ## ✨ Highlights & Key Features
 
+### 🚀 Modern Activity Bar & Workspaces
+gown-ted provides a seamless creative environment inspired by modern developer tooling, featuring a dedicated 48px vertical dock on the left:
+- 📝 **Editor & Files Workspace:** Distraction-free writing canvas, local file explorer, and contextual poetics sidebars.
+- 📚 **WordNet Lexical Explorer:** Full A-Z dictionary and ontology explorer covering all 45 Princeton WordNet lexicographer domains.
+- 🕸️ **Document Word Graph:** Interactive constellation graph visualizing semantic relationships among words in your draft.
+
+### 📚 WordNet Lexical Explorer (45 Lexicographer Domains)
+- **45 Domain Indexing:** Browse all WordNet lexicographer files (`noun.act`, `noun.animal`, `verb.motion`, `verb.cognition`, `adj.pert`, etc.) indexed in-memory with real-time word statistics.
+- **Dynamic Vocabulary Counts:** Live badge counts update as you filter words within each domain.
+- **Taxonomic Autonavigation:** Clicking any taxonomic relation (`hypernym`, `hyponym`, `meronym`, `holonym`) or sense synonym instantly navigates to that word's exact lexicographer domain and entry.
+- **Redesigned Sense Cards:** Absolute corner badges (`#1`, `#2`), vertical POS ribbons with lexical icons, and safe typography padding for effortless readability.
+
+### 🕸️ Interactive Document Word Graph
+- **Constellation Point Visualization:** Words are drawn as crisp, minimalist dots with prominent, easily legible text labels that remain sharp across all zoom levels.
+- **Multi-Hop Semantic Traversal:** Deep pathfinding algorithm uncovers associative semantic chains connecting seemingly distant words across intermediate synsets and definitions.
+- **Relationship Badges on Edges:** Every edge displays a color-coded badge identifying the semantic connection (`hypernym`, `hyponym`, `synonym`, `definition`, `antonym`, `path`).
+- **Interactive Focus:** Click any node to center, highlight connected concepts, and inspect full lexical definitions.
+
 ### 🧠 Contextual Sense Disambiguation & Ontology
 - **Smart Lesk WSD:** When you select or type a word, gown-ted reads the surrounding sentence and highlights the most likely synset with a confidence score.
 - **Synonyms by Sense:** Synonyms are grouped strictly by definition and Part of Speech (*Noun*, *Verb*, *Adjective*, *Adverb*), complete with one-click word replacement or insertion.
@@ -66,6 +84,7 @@ Word choice is the soul of writing. Yet typical thesauruses dump flat, context-f
 
 ### 🎨 Distraction-Free Dark Workspace
 - **Chakra UI v3 Theming:** Deep slate palette, customizable font sizes, and smooth resizing panels.
+- **Persistent State:** Editor text, cursor positions, selections, and undo/redo stacks remain 100% intact when switching views.
 - **Focus Mode (`Ctrl + Shift + F`):** Collapse all sidebars and toolbars with one keystroke for pure, uninterrupted writing.
 - **Local File Explorer:** Open, edit, and organize `.txt` and `.md` documents in your working folders.
 
@@ -73,13 +92,22 @@ Word choice is the soul of writing. Yet typical thesauruses dump flat, context-f
 
 ## 🚀 Quick Start & Installation
 
-### Windows (Precompiled Standalone)
-1. Download the latest `gown-ted-windows-amd64.zip` from [GitHub Releases](https://github.com/raitucarp/gown-ted/releases/latest).
-2. Extract the `.zip` archive to your preferred directory.
-3. Launch `gown-ted.exe` and begin writing!
+gown-ted provides **official native installers** alongside portable archives for all major platforms:
 
-### macOS & Linux
-Precompiled binaries for macOS and Linux are coming with our automated GitHub Actions release workflow. In the meantime, you can easily build from source:
+### 🪟 Windows (x64)
+- **Installer (Recommended):** Download [`gown-ted-amd64-installer.exe`](https://github.com/raitucarp/gown-ted/releases/latest) from GitHub Releases, run setup, and enjoy Start Menu and Desktop shortcuts.
+- **Portable Zip:** Download `gown-ted-windows-amd64.zip`, extract it to any folder, and run `gown-ted.exe`.
+
+### 🍏 macOS (Apple Silicon / ARM64)
+- **DMG Installer (Recommended):** Download [`gown-ted-macos-arm64.dmg`](https://github.com/raitucarp/gown-ted/releases/latest), open the disk image, and drag `gown-ted.app` into your `/Applications` folder.
+- **Portable Archive:** Download `gown-ted-macos-arm64.tar.gz` and extract the `.app` bundle.
+
+### 🐧 Linux (x86_64)
+- **Debian / Ubuntu / Mint:** Download [`gown-ted-linux-amd64.deb`](https://github.com/raitucarp/gown-ted/releases/latest) and install via `sudo dpkg -i gown-ted-linux-amd64.deb`.
+- **Fedora / RHEL:** Download [`gown-ted-linux-amd64.rpm`](https://github.com/raitucarp/gown-ted/releases/latest) and install via `sudo rpm -i gown-ted-linux-amd64.rpm`.
+- **Portable Tarball:** Download `gown-ted-linux-amd64.tar.gz`, extract it, and execute `./bin/gown-ted` (requires GTK4 & WebKitGTK 6.0).
+
+### 🛠️ Building from Source
 
 ```bash
 # 1. Clone repository
