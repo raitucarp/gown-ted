@@ -67,6 +67,14 @@ jobs:
       - name: Build Windows NSIS Installer
         shell: pwsh
         run: |
+          if (!(Get-Command makensis -ErrorAction SilentlyContinue)) {
+            if (Test-Path "C:\Program Files (x86)\NSIS\makensis.exe") {
+              $env:PATH += ";C:\Program Files (x86)\NSIS"
+            } else {
+              choco install nsis -y
+              $env:PATH += ";C:\Program Files (x86)\NSIS"
+            }
+          }
           wails3 generate webview2bootstrapper -dir "build/windows/nsis"
           cd build/windows/nsis
           makensis -DARG_WAILS_AMD64_BINARY="..\..\..\bin\gown-ted.exe" project.nsi
