@@ -156,7 +156,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
   <div class="hero-badge">
-    <span>✨ Version {{ .Site.Params.version }} Initial Release</span>
+    <span>✨ Version {{ .Site.Params.version }} Release</span>
   </div>
   <h1 class="hero-title">
     The Intelligent Lexical & Poetics Text Editor
@@ -173,7 +173,7 @@
       </svg>
       Download for Windows (x64)
     </a>
-    <a href="{{ "/docs/getting-started/" | relURL }}" class="btn btn-outline" style="padding: 0.75rem 1.4rem; font-size: 1rem;">
+    <a href="{{ "docs/getting-started/" | relURL }}" class="btn btn-outline" style="padding: 0.75rem 1.4rem; font-size: 1rem;">
       Read Documentation →
     </a>
   </div>
@@ -192,6 +192,24 @@
 
   <div class="feature-grid">
     <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <h3>Activity Bar & Workspaces</h3>
+      <p>Modern 48px vertical dock seamlessly switching between Editor & Files, WordNet Lexical Explorer, and Document Word Graph with zero state loss.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">📚</div>
+      <h3>WordNet Lexical Explorer</h3>
+      <p>Full in-memory indexing of all 45 Princeton WordNet lexicographer files with live search, dynamic counts, and taxonomic autonavigation.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🕸️</div>
+      <h3>Document Word Graph</h3>
+      <p>Interactive constellation network visualizing semantic relations, multi-hop conceptual chains, and edge relationship badges across your draft.</p>
+    </div>
+
+    <div class="feature-card">
       <div class="feature-icon">🧠</div>
       <h3>Real-Time Sense Disambiguation</h3>
       <p>Automatic Lesk contextual analysis identifies the exact WordNet synset matching your sentence context with real-time confidence scores.</p>
@@ -204,33 +222,51 @@
     </div>
 
     <div class="feature-card">
-      <div class="feature-icon">🌿</div>
-      <h3>Ontology & Semantic Relations</h3>
-      <p>Navigate hypernyms, hyponyms, meronyms, and semantic taxonomy trees. Calculate Wu-Palmer conceptual similarity between any two words.</p>
-    </div>
-
-    <div class="feature-card">
       <div class="feature-icon">🔬</div>
       <h3>Systemic Functional Linguistics</h3>
-      <p>Analyze Theme/Rheme clauses, interpersonal politeness hedging, speech acts, and cohesive lexical ties across your writing.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Local-First & Blazing Fast</h3>
-      <p>100% offline, zero cloud reliance. Native Go backend powered by Wails v3 starts in milliseconds and consumes minimal RAM.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🎨</div>
-      <h3>Chakra UI v3 Dark Experience</h3>
-      <p>Immersive, customizable multi-pane workspace with distraction-free focus mode, rich text formatting, and tabbed file explorer.</p>
+      <p>Analyze Theme/Rheme clauses, interpersonal politeness hedging, speech acts, and cohesive lexical ties in the collapsible bottom drawer.</p>
     </div>
   </div>
 </section>
 
-<!-- Visual Showcase 1 -->
+<!-- Visual Showcase 1: WordNet Explorer -->
 <section class="section-container" style="padding-top: 0;">
+  <div class="showcase-row">
+    <div class="showcase-text prose">
+      <h2>WordNet Lexical Explorer (45 Domains)</h2>
+      <p>
+        Explore the vast English lexicon across all 45 Princeton WordNet lexicographer categories. Filter thousands of words in real time with dynamic badge counters and inspect richly structured sense cards.
+      </p>
+      <ul>
+        <li><strong>45 Domain Categories:</strong> Seamlessly browse domains from <code>noun.animal</code> and <code>noun.communication</code> to <code>verb.motion</code> and <code>adj.all</code>.</li>
+        <li><strong>Taxonomic Autonavigation:</strong> Click any hypernym, hyponym, or synonym to immediately jump to its exact domain and definition card.</li>
+        <li><strong>Redesigned Sense Cards:</strong> Corner badges, POS ribbons with lexical icons, and dedicated insert/copy actions.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="{{ "images/wordnet-explorer.png" | relURL }}" alt="WordNet Lexical Explorer with 45 domains and sense cards">
+    </div>
+  </div>
+
+  <!-- Visual Showcase 2: Document Word Graph -->
+  <div class="showcase-row reverse">
+    <div class="showcase-text prose">
+      <h2>Interactive Document Word Graph</h2>
+      <p>
+        See your draft come alive as a semantic constellation. Discover latent conceptual pathways and thematic bridges connecting different parts of your writing.
+      </p>
+      <ul>
+        <li><strong>Constellation Point Network:</strong> Minimalist nodes with crisp typography and responsive force-directed layout.</li>
+        <li><strong>Multi-Hop Semantic Traversal:</strong> Uncover associative chains linking words through intermediate synsets and hypernyms.</li>
+        <li><strong>Relation Badges on Edges:</strong> Color-coded badges for synonyms, hypernyms, hyponyms, definitions, and paths.</li>
+      </ul>
+    </div>
+    <div class="showcase-img">
+      <img src="{{ "images/word-graph.png" | relURL }}" alt="Interactive Document Word Graph constellation visualization">
+    </div>
+  </div>
+
+  <!-- Visual Showcase 3: Pragmatics & Poetics -->
   <div class="showcase-row">
     <div class="showcase-text prose">
       <h2>Deep Pragmatic & Speech Act Insights</h2>
@@ -248,6 +284,7 @@
     </div>
   </div>
 
+  <!-- Visual Showcase 4: Designed for Writers -->
   <div class="showcase-row reverse">
     <div class="showcase-text prose">
       <h2>Designed for Writers, Poets & Scholars</h2>

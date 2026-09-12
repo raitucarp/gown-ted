@@ -1,4 +1,4 @@
-baseURL = 'https://raitucarp.github.io/gown-ted/'
+baseURL = 'https://raitucarp.name/gown-ted/'
 locale = 'en-US'
 title = 'gown-ted — Computational Linguistics & Poetics Editor'
 paginate = 10
@@ -7,7 +7,7 @@ paginate = 10
   description = 'A modern desktop text editor deeply integrated with Princeton WordNet and Open English Wordnet for writers, poets, and linguists.'
   author = 'Ribhararnus Pracutiar (@raitucarp)'
   github = 'https://github.com/raitucarp/gown-ted'
-  version = 'v0.1.0'
+  version = 'v0.2.0'
   releaseUrl = 'https://github.com/raitucarp/gown-ted/releases/latest'
 
 [languages]

@@ -11,7 +11,7 @@
   </p>
 
   <p>
-    <a href="https://raitucarp.github.io/gown-ted/"><strong>Explore Documentation Website ↗</strong></a> &nbsp;|&nbsp;
+    <a href="https://raitucarp.name/gown-ted/"><strong>Explore Documentation Website ↗</strong></a> &nbsp;|&nbsp;
     <a href="https://github.com/raitucarp/gown-ted/releases/latest"><strong>Download Latest Release</strong></a> &nbsp;|&nbsp;
     <a href="https://ko-fi.com/raitucarp"><strong>Support on Ko-fi ❤️</strong></a>
   </p>
@@ -144,12 +144,12 @@ wails3 build    # Compile standalone binary
 
 Looking for deep dives into WordNet ontology, phonological models, or systemic functional grammar?
 
-👉 **Read the full online documentation at: [https://raitucarp.github.io/gown-ted/](https://raitucarp.github.io/gown-ted/)**
+👉 **Read the full online documentation at: [https://raitucarp.name/gown-ted/](https://raitucarp.name/gown-ted/)**
 
-- [Getting Started Guide](https://raitucarp.github.io/gown-ted/docs/getting-started/)
-- [Core Features & Lexical Suite](https://raitucarp.github.io/gown-ted/docs/features/)
-- [Poetics, Rhyme & Meter Guide](https://raitucarp.github.io/gown-ted/docs/poetics-and-rhyme/)
-- [Complete Keyboard Reference](https://raitucarp.github.io/gown-ted/docs/keyboard-shortcuts/)
+- [Getting Started Guide](https://raitucarp.name/gown-ted/docs/getting-started/)
+- [Core Features & Lexical Suite](https://raitucarp.name/gown-ted/docs/features/)
+- [Poetics, Rhyme & Meter Guide](https://raitucarp.name/gown-ted/docs/poetics-and-rhyme/)
+- [Complete Keyboard Reference](https://raitucarp.name/gown-ted/docs/keyboard-shortcuts/)
 
 ---
 

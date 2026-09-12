@@ -3,10 +3,10 @@
   <aside class="docs-sidebar">
     <h4>Documentation</h4>
     <ul>
-      <li><a href="{{ "/docs/getting-started/" | relURL }}" class="{{ if eq .RelPermalink "/docs/getting-started/" }}active{{ end }}">Getting Started</a></li>
-      <li><a href="{{ "/docs/features/" | relURL }}" class="{{ if eq .RelPermalink "/docs/features/" }}active{{ end }}">Key Features</a></li>
-      <li><a href="{{ "/docs/poetics-and-rhyme/" | relURL }}" class="{{ if eq .RelPermalink "/docs/poetics-and-rhyme/" }}active{{ end }}">Poetics, Rhyme & Meter</a></li>
-      <li><a href="{{ "/docs/keyboard-shortcuts/" | relURL }}" class="{{ if eq .RelPermalink "/docs/keyboard-shortcuts/" }}active{{ end }}">Keyboard Shortcuts</a></li>
+      <li><a href="{{ "docs/getting-started/" | relURL }}" class="{{ if eq .RelPermalink ("docs/getting-started/" | relURL) }}active{{ end }}">Getting Started</a></li>
+      <li><a href="{{ "docs/features/" | relURL }}" class="{{ if eq .RelPermalink ("docs/features/" | relURL) }}active{{ end }}">Key Features</a></li>
+      <li><a href="{{ "docs/poetics-and-rhyme/" | relURL }}" class="{{ if eq .RelPermalink ("docs/poetics-and-rhyme/" | relURL) }}active{{ end }}">Poetics, Rhyme & Meter</a></li>
+      <li><a href="{{ "docs/keyboard-shortcuts/" | relURL }}" class="{{ if eq .RelPermalink ("docs/keyboard-shortcuts/" | relURL) }}active{{ end }}">Keyboard Shortcuts</a></li>
     </ul>
 
     <h4>Resources</h4>

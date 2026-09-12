@@ -47,6 +47,8 @@ Welcome to **gown-ted** — the intelligent desktop text editor combining distra
  2. 📚 **WordNet Lexical Explorer:** Full dictionary and taxonomy browser spanning all 45 WordNet domain categories. Click any taxonomic tag or synonym to jump directly to its entry.
  3. 🕸️ **Document Word Graph:** An interactive semantic network that graphs every word in your active draft as a constellation of points, with clickable multi-hop pathways and edge relationship labels.
  
+ ![WordNet Lexical Explorer](/gown-ted/images/wordnet-explorer.png)
+ 
  ---
  
  ## First Steps in the Editor

@@ -178,6 +178,168 @@ const mockStats = {
   vocabularyRichness: 0.47
 };
 
+const mockLexFiles = [
+  { name: "noun.animal", wordCount: 3982 },
+  { name: "noun.communication", wordCount: 3120 },
+  { name: "noun.cognition", wordCount: 2450 },
+  { name: "noun.artifact", wordCount: 8712 },
+  { name: "noun.act", wordCount: 6540 },
+  { name: "noun.person", wordCount: 7830 },
+  { name: "noun.phenomenon", wordCount: 940 },
+  { name: "noun.plant", wordCount: 4210 },
+  { name: "noun.possession", wordCount: 1120 },
+  { name: "noun.process", wordCount: 760 },
+  { name: "noun.quantity", wordCount: 1340 },
+  { name: "noun.relation", wordCount: 490 },
+  { name: "noun.shape", wordCount: 320 },
+  { name: "noun.state", wordCount: 3490 },
+  { name: "noun.substance", wordCount: 2180 },
+  { name: "noun.time", wordCount: 1420 },
+  { name: "verb.body", wordCount: 1620 },
+  { name: "verb.change", wordCount: 3840 },
+  { name: "verb.cognition", wordCount: 2150 },
+  { name: "verb.communication", wordCount: 1840 },
+  { name: "verb.competition", wordCount: 740 },
+  { name: "verb.consumption", wordCount: 680 },
+  { name: "verb.contact", wordCount: 3210 },
+  { name: "verb.creation", wordCount: 1450 },
+  { name: "verb.emotion", wordCount: 820 },
+  { name: "verb.motion", wordCount: 2890 },
+  { name: "verb.perception", wordCount: 1130 },
+  { name: "verb.possession", wordCount: 980 },
+  { name: "verb.social", wordCount: 2410 },
+  { name: "verb.stative", wordCount: 1540 },
+  { name: "adj.all", wordCount: 7620 },
+  { name: "adj.pert", wordCount: 1850 },
+  { name: "adv.all", wordCount: 3120 }
+];
+
+const mockWordsAnimal = [
+  {
+    word: "falcon",
+    pos: "noun",
+    definition: "diurnal bird of prey having long pointed wings and swift, powerful flight",
+    synsetId: "n01608627",
+    examples: ["the peregrine falcon dived at breakneck speed across the crag"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "eagle",
+    pos: "noun",
+    definition: "large bird of prey noted for broad wings, keen vision, and soaring flight",
+    synsetId: "n01612451",
+    examples: ["an eagle circled high above the alpine meadow"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "nightingale",
+    pos: "noun",
+    definition: "European songbird celebrated for its rich, melodic nocturnal singing",
+    synsetId: "n01569420",
+    examples: ["a nightingale serenaded the starry dusk"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "raven",
+    pos: "noun",
+    definition: "large black bird with a heavy bill, deep croaking call, and remarkable intelligence",
+    synsetId: "n01582840",
+    examples: ["the raven perched solemn atop the bust of Pallas"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "swallow",
+    pos: "noun",
+    definition: "small migratory bird with long pointed wings and a forked tail, graceful in flight",
+    synsetId: "n01575080",
+    examples: ["swallows darted skimming the mirror surface of the lake"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "lynx",
+    pos: "noun",
+    definition: "short-tailed wildcat with tufted ears and large padded paws adapted for snow",
+    synsetId: "n02127299",
+    examples: ["the silent lynx moved like a phantom across the drifts"],
+    lexfile: "noun.animal"
+  },
+  {
+    word: "wolf",
+    pos: "noun",
+    definition: "wild carnivorous mammal of the dog family, hunting in cooperative packs",
+    synsetId: "n02114100",
+    examples: ["the wolf howled into the frostbitten midnight"],
+    lexfile: "noun.animal"
+  }
+];
+
+const mockFalconAnalysis = {
+  ...mockAnalysisResult,
+  word: "falcon",
+  primaryLemma: "falcon",
+  senses: [
+    {
+      synsetOffset: 1608627,
+      pos: "noun",
+      lexicalFileNum: 5,
+      lexicalFileName: "noun.animal",
+      definition: "diurnal bird of prey having long pointed wings and swift, powerful flight; formerly trained for hunting",
+      examples: [
+        "the peregrine falcon dived at breakneck speed across the crag",
+        "the falconer released the hood, allowing the falcon to survey the open sky"
+      ],
+      lemmas: ["falcon"],
+      hypernyms: ["bird of prey", "raptor", "hawk"],
+      hyponyms: ["peregrine", "kestrel", "gyrfalcon", "merlin"]
+    }
+  ],
+  recommendedSenseIndex: 0,
+  wsdConfidence: 0.98,
+  hierarchyTree: "entity -> physical object -> organism -> animal -> vertebrate -> bird -> raptor -> falcon",
+  synonymGroups: [
+    {
+      senseNumber: 1,
+      senseDefinition: "diurnal bird of prey having long pointed wings",
+      pos: "noun",
+      words: ["peregrine", "kestrel", "raptor", "tiercel"]
+    }
+  ],
+  antonyms: [],
+  hypernyms: ["bird of prey", "raptor", "hawk"],
+  hyponyms: ["peregrine", "kestrel", "gyrfalcon", "merlin"]
+};
+
+const mockGraphData = {
+  nodes: [
+    { id: "whisper", label: "whisper", type: "word", pos: "noun", is_document_word: true, definition: "speaking softly without vocal cord vibration" },
+    { id: "syllables", label: "syllables", type: "word", pos: "noun", is_document_word: true, definition: "units of spoken language consisting of single uninterrupted sound" },
+    { id: "resonance", label: "resonance", type: "word", pos: "noun", is_document_word: true, definition: "richness or musical depth of sound or feeling" },
+    { id: "verse", label: "verse", type: "word", pos: "noun", is_document_word: true, definition: "a line or stanza of metrical poetic writing" },
+    { id: "echo", label: "echo", type: "word", pos: "noun", is_document_word: true, definition: "repetition of sound by reflection of sound waves" },
+    { id: "pine", label: "pine", type: "word", pos: "noun", is_document_word: true, definition: "evergreen coniferous tree with needle-shaped leaves" },
+    { id: "dawn", label: "dawn", type: "word", pos: "noun", is_document_word: true, definition: "the first appearance of daylight in the morning" },
+    { id: "spirit", label: "spirit", type: "word", pos: "noun", is_document_word: true, definition: "the vital principle or animating essence of a person" },
+    { id: "tapestry", label: "tapestry", type: "word", pos: "noun", is_document_word: true, definition: "a rich, complex fabric or interwoven composite" },
+    { id: "sound", label: "sound", type: "intermediate", pos: "noun", is_document_word: false, definition: "auditory sensations produced by acoustic vibrations" },
+    { id: "speech", label: "speech", type: "intermediate", pos: "noun", is_document_word: false, definition: "communication through spoken language" },
+    { id: "communication", label: "communication", type: "intermediate", pos: "noun", is_document_word: false, definition: "the exchange or transmission of information" },
+    { id: "poetry", label: "poetry", type: "intermediate", pos: "noun", is_document_word: false, definition: "creative literature crafted in metrical or rhythmic form" }
+  ],
+  edges: [
+    { source: "whisper", target: "speech", label: "hypernym", type: "hypernym", weight: 2 },
+    { source: "speech", target: "communication", label: "hypernym", type: "hypernym", weight: 2 },
+    { source: "whisper", target: "sound", label: "domain", type: "domain", weight: 1.5 },
+    { source: "syllables", target: "speech", label: "path", type: "path", weight: 1.5 },
+    { source: "resonance", target: "sound", label: "definition", type: "definition", weight: 1.5 },
+    { source: "echo", target: "sound", label: "hypernym", type: "hypernym", weight: 2 },
+    { source: "verse", target: "poetry", label: "hyponym", type: "hyponym", weight: 2 },
+    { source: "verse", target: "syllables", label: "path", type: "path", weight: 1.5 },
+    { source: "echo", target: "whisper", label: "synonym", type: "synonym", weight: 1.8 },
+    { source: "tapestry", target: "resonance", label: "path", type: "path", weight: 1.2 },
+    { source: "spirit", target: "verse", label: "path", type: "path", weight: 1.2 }
+  ]
+};
+
 const server = http.createServer((req, res) => {
   if (req.url.startsWith('/wails/runtime')) {
     let body = '';
@@ -193,7 +355,12 @@ const server = http.createServer((req, res) => {
       } else if (methodId === 774512167) {
         resp = mockStats;
       } else if (methodId === 210490654) {
-        resp = mockAnalysisResult;
+        const queryWord = parsed.args?.args?.[0] || "";
+        if (queryWord === "falcon") {
+          resp = mockFalconAnalysis;
+        } else {
+          resp = mockAnalysisResult;
+        }
       } else if (methodId === 1137991401) {
         resp = { word1: "whisper", word2: "murmur", score: 0.88, lowestCommonAncestor: "vocalization.n.01" };
       } else if (methodId === 2109872559) {
@@ -204,6 +371,14 @@ const server = http.createServer((req, res) => {
           { word: "whispering", lemma: "whisper", pos: "v", gloss: "speaking gently in low tones", senseNumber: 1, source: "morphology" },
           { word: "whispers", lemma: "whisper", pos: "n", gloss: "plural of whisper", senseNumber: 1, source: "morphology" }
         ];
+      } else if (methodId === 3561151394) {
+        resp = mockLexFiles;
+      } else if (methodId === 38440605) {
+        resp = mockWordsAnimal;
+      } else if (methodId === 371324934) {
+        resp = mockWordsAnimal[0];
+      } else if (methodId === 4077261957) {
+        resp = mockGraphData;
       } else if (methodId === 3265971228) {
         resp = "C:/Users/Poet/Documents/Verses";
       } else if (methodId === 2157397385) {
@@ -317,7 +492,45 @@ server.listen(5199, '127.0.0.1', async () => {
   await page.screenshot({ path: path.join(websiteImagesDir, 'poetics-suite.png') });
   await page.screenshot({ path: path.join(docsImagesDir, 'poetics-suite.png') });
 
-  // 4. Open About Dialog via Help menu
+  // 4. WordNet Lexical Explorer View (ActivityBar icon 2)
+  console.log('Switching to WordNet Lexical Explorer view...');
+  const wordnetBtn = page.locator('button[aria-label="WordNet Lexical Explorer (LexFiles & Synsets)"]');
+  if (await wordnetBtn.count() > 0) {
+    await wordnetBtn.first().click();
+    await page.waitForTimeout(1500);
+
+    // Click on 'falcon' word item to show rich sense card
+    const falconItem = page.locator('text="falcon"');
+    if (await falconItem.count() > 0) {
+      await falconItem.first().click();
+      await page.waitForTimeout(800);
+    }
+
+    console.log('Capturing wordnet-explorer.png...');
+    await page.screenshot({ path: path.join(websiteImagesDir, 'wordnet-explorer.png') });
+    await page.screenshot({ path: path.join(docsImagesDir, 'wordnet-explorer.png') });
+  }
+
+  // 5. Document Word Graph View (ActivityBar icon 3)
+  console.log('Switching to Document Word Graph view...');
+  const graphBtn = page.locator('button[aria-label="Document Word Relationship Graph"]');
+  if (await graphBtn.count() > 0) {
+    await graphBtn.first().click();
+    await page.waitForTimeout(2500); // Allow force graph layout to settle
+
+    console.log('Capturing word-graph.png...');
+    await page.screenshot({ path: path.join(websiteImagesDir, 'word-graph.png') });
+    await page.screenshot({ path: path.join(docsImagesDir, 'word-graph.png') });
+  }
+
+  // 6. Open About Dialog via Help menu
+  console.log('Switching back to Editor view...');
+  const editorBtn = page.locator('button[aria-label="Editor & Files (Explorer, Senses, Morphology)"]');
+  if (await editorBtn.count() > 0) {
+    await editorBtn.first().click();
+    await page.waitForTimeout(800);
+  }
+
   console.log('Opening Help menu...');
   const helpMenuBtn = page.locator('button', { hasText: 'Help' });
   if (await helpMenuBtn.count() > 0) {

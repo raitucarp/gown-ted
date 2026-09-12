@@ -6,7 +6,7 @@ weight: 3
 
 Whether writing sonnets, free verse, hip-hop lyrics, or lyrical prose, gown-ted provides a complete phonological and poetics suite right beside your editor.
 
-![Poetics Suite in gown-ted](/gown-ted/images/hero-editor.png)
+![Poetics Suite in gown-ted](/gown-ted/images/poetics-suite.png)
 
 ## Phonological Breakdown
 

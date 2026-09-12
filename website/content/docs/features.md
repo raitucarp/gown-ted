@@ -25,6 +25,8 @@ gown-ted introduces a flexible workspace model powered by a 48px vertical dock o
 - **Interactive Autonavigation:** Clicking any taxonomic relation (`hypernym`, `hyponym`, `meronym`, `holonym`) or sense synonym instantly navigates to that word's exact lexicographer domain and entry.
 - **Redesigned Sense Cards:** Sense numbers (`#1`, `#2`) are pinned to the top-right corner, domain categories are pinned to the top-left, and vertical POS ribbons feature dedicated lexical icons with clean typography spacing.
 
+![WordNet Lexical Explorer](/gown-ted/images/wordnet-explorer.png)
+
 ---
 
 ## 3. Interactive Document Word Graph
@@ -33,6 +35,8 @@ gown-ted introduces a flexible workspace model powered by a 48px vertical dock o
 - **Multi-Hop Semantic Traversal:** Deep pathfinding traces associative semantic chains connecting seemingly distant words across intermediate synsets and definitions (e.g. connecting *"he"* and *"home"* through conceptual lineages like *person*, *dwelling*, and *structure*).
 - **Relationship Badges on Edges:** Every connection line displays an interactive badge identifying the semantic bond (`hypernym`, `hyponym`, `synonym`, `definition`, `antonym`, `path`), color-coded according to the visual legend.
 - **Focused Inspection:** Selecting any node highlights all its immediate relations while gently dimming unrelated clusters for effortless comprehension.
+
+![Interactive Document Word Graph](/gown-ted/images/word-graph.png)
 
 ---
 
